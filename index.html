@@ -4,53 +4,70 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Panther by ThunderPanther</title>
+    <title>Panthera</title>
 
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/bootstrap.css">
-    <style>
-    body {
-        padding-top: 50px;
-        padding-bottom: 20px;
-    }
-    #buttonlink {
-        color: #fff;
-    }
-    </style>
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
     <link rel="stylesheet" href="css/main.css">
+    <style>
+        body {
+            padding-top: 50px;
+            padding-bottom: 20px;
+        }
+    </style>
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript">
 
-    <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    $(document).ready(function() {
+        $(window).blur(function(e) {
+            var message = titleMessage[getRandomInt(0, 10)];
+            document.title = message;
+        });
+        $(window).focus(function(e) {
+            document.title = originalTitle;
+        });
+
+    });
+
+    </script>
 </head>
 
 <body data-spy="scroll" data-offset="0" data-target="#navigation">
-<div id="navigation" class="navbar navbar-default navbar-fixed-top">
-          <div class="container">
+    <div id="navigation" class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
             <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#"><b>Panthera</b></a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><b>Panthera</b></a>
             </div>
             <div class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="#home" class="smothscroll">Description</a></li>
-                <li class=""><a href="#video" class="smothscroll">Video</a></li>
-                <li class=""><a href="#meetus" class="smothScroll">Team Panthera</a></li>
-                <li class=""><a href="#docs" class="smothScroll">Panthera Documentation</a></li>
-                <li class=""><a href="#contact" class="smothScroll">Contact</a></li>
-              </ul>
-            </div><!--/.nav-collapse -->
-          </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#home" class="smothscroll">Description</a>
+                    </li>
+                    <li class=""><a href="#video" class="smothscroll">Video</a>
+                    </li>
+                    <li class=""><a href="#meetus" class="smothScroll">Team Panthera</a>
+                    </li>
+                    <li class=""><a href="#docs" class="smothScroll">Panthera Documentation</a>
+                    </li>
+                    <li class=""><a href="#contact" class="smothScroll">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
         </div>
+    </div>
+
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <section id="home" name="home"></section>
     <div class="jumbotron" style="padding-top:50px;">
         <div class="container">
-        
+
             <div class="col-md-3 col-md-pull-1">
                 <img alt="panther" src="img/panther.png" width="400">
             </div>
@@ -58,45 +75,42 @@
                 <h1>Panthera</h1>
                 <p>Panthera is an organizational revolution. Panthera pushes you towards your goals using our new, game-changing hierarchical task model. By breaking down massive, daunting tasks into smaller, easier subtasks, you will make amazing progress towards your goals. Panthera will connect you with like-minded peers, and encourages interaction between peers who have similar goals creating a robust and supportive support system.</p>
             </div>
-            <!-- <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a>
-            </p> -->
         </div>
     </div>
 
-<section id="video" name="video"></section>
+    <section id="video" name="video"></section>
     <div id="videowrap" style="padding: 50px;">
-    <div class="container" style="padding: 50px;">
-        <div class="col-md-4">
-            <h3>Get Panthered!</h3>
-            <hr>
-            <div class="btn-group">
-                <button class="btn btn-primary"><a id="buttonlink" href="https://github.com/ThunderPanther/panther/zipball/master">ZIP File</a>
-                </button>
-                <button class="btn btn-primary"><a id="buttonlink" href="https://github.com/ThunderPanther/panther/tarball/master">TAR Ball</a>
-                </button>
-                <button class="btn btn-primary"><a id="buttonlink" href="https://github.com/ThunderPanther/panther">GitHub</a>
-                </button>
+        <div class="container" style="padding: 50px;">
+            <div class="col-md-4">
+                <h3>Get Panthered!</h3>
+                <!-- <hr> -->
+                <div class="btn-group">
+                    <button class="btn btn-primary"><a id="buttonlink" href="https://github.com/ThunderPanther/panther/zipball/master">ZIP File</a>
+                    </button>
+                    <button class="btn btn-primary"><a id="buttonlink" href="https://github.com/ThunderPanther/panther/tarball/master">TAR Ball</a>
+                    </button>
+                    <button class="btn btn-primary"><a id="buttonlink" href="https://github.com/ThunderPanther/panther">GitHub</a>
+                    </button>
+                </div>
             </div>
-        </div>
 
-        <div class="col-md-8">
-            <iframe width="560" height="315" src="//www.youtube.com/embed/6przuR7ITfY" frameborder="0" allowfullscreen></iframe>
+            <div class="col-md-8">
+                <iframe width="560" height="315" src="//www.youtube.com/embed/6przuR7ITfY" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <!-- <hr> -->
         </div>
-        <hr>
-    </div>
     </div>
 
-<section id="meetus" name="meetus"></section>
-<div id="meetuswrap" style="background-color: #151515;">
-    <div class="container" style="padding: 50px ;">
-        <br>
-        <h3 style="text-align:center">Meat Team Panthera</h3>
-        <div class="col-md-4">
+    <section id="meetus" name="meetus"></section>
+    <div id="meetuswrap" style="background-color: #151515;">
+        <div class="container" style="padding: 50px ;">
             <br>
-            Steven Hohs (<a href="https://github.com/shohs" class="user-mention"> @shohs</a>)
+            <h3 style="text-align:center">Meat Team Panthera</h3>
+            <div class="col-md-4">
+                <br>Steven Hohs (<a href="https://github.com/shohs" class="user-mention"> @shohs</a>)
                 <img alt="Steven Hohs" src="img/shohs.jpg" width="200">
                 <p>
-                
+
                     <ul>
                         <li>Age years old</li>
                         <li>Not Comcast</li>
@@ -105,93 +119,93 @@
                         <li>Fifth Thing</li>
                     </ul>
                 </p>
-        </div>
+            </div>
 
-        <div class="col-md-4">
-            <br>Conner Lines (<a href="https://github.com/cdlines" class="user-mention"> @cdlines</a>)
-            <img alt="Conner Lines" src="img/condor.jpg" width="200">
-            <p>
-            
-                <ul>
-                    <li>20 years old</li>
-                    <li>Not Comcast</li>
-                    <li>Likes To Whistle</li>
-                    <li>David is his middle name.</li>
-                    <li>Fifth Thing</li>
-                </ul>
-            </p>
-        </div>
+            <div class="col-md-4">
+                <br>Conner Lines (<a href="https://github.com/cdlines" class="user-mention"> @cdlines</a>)
+                <img alt="Conner Lines" src="img/condor.jpg" width="200">
+                <p>
 
-        <div class="col-md-4">
-            <br>Quadarius Moore (<a href="https://github.com/.quadarius" class="user-mention">@Quadarius</a>)
-            <img alt="Quadarius Moore" src="img/ore.jpg" width="200">
-            <p>
-            
-                <ul>
-                    <li>22 years old</li>
-                    <li>Not Comcast</li>
-                    <li>Likes To Learn</li>
-                    <li>Loves The Binding of Isaac</li>
-                    <li>6'5" Tall</li>
-                </ul>
-            </p>
+                    <ul>
+                        <li>20 years old</li>
+                        <li>Not Comcast</li>
+                        <li>Likes To Whistle</li>
+                        <li>David is his middle name.</li>
+                        <li>Fifth Thing</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <br>Quadarius Moore (<a href="https://github.com/quadarius" class="user-mention">@Quadarius</a>)
+                <img alt="Quadarius Moore" src="img/ore.jpg" width="200">
+                <p>
+
+                    <ul>
+                        <li>22 years old</li>
+                        <li>Not Comcast</li>
+                        <li>Likes To Learn</li>
+                        <li>Loves The Binding of Isaac</li>
+                        <li>6'5" Tall</li>
+                    </ul>
+                </p>
+            </div>
+            <!-- <hr> -->
         </div>
-        <hr>
     </div>
-</div>
-<section id="docs" name="docs"></section>
-<div id="docswrap">
-<div class="container">
-    <h3 style="text-align:center;">Panthera Documentation</h3>
-<a href="https://docs.google.com/document/d/1oibPpQBq7_hrteSxnDexunHIcH6Dk478LK6fiagY4OA/edit?usp=sharing">Requirements Document</a>
-</div>
-</div>
-<section id="contact" name="contact"></section>
-<div id="footerwrap" style="background-color: #555;">
-        <div class="container">            
+
+    <section id="docs" name="docs"></section>
+    <div id="docswrap">
+        <div class="container">
+            <h3 style="text-align:center;">Panthera Documentation</h3>
+            <a href="https://docs.google.com/document/d/1oibPpQBq7_hrteSxnDexunHIcH6Dk478LK6fiagY4OA/edit?usp=sharing">Requirements Document</a>
+        </div>
+    </div>
+
+    <section id="contact" name="contact"></section>
+    <div id="footerwrap" style="background-color: #555;">
+        <div class="container">
             <div class="col-lg-12">
                 <h3>Drop Us A Line</h3>
                 <br>
-                <form role="form" action="#" method="post" enctype="plain"> 
-                  <div class="form-group">
-                    <label for="name1">Your Name</label>
-                    <input type="name" name="Name" class="form-control" id="name1" placeholder="Your Name">
-                  </div>
-                  <div class="form-group">
-                    <label for="email1">Email address</label>
-                    <input type="email" name="Mail" class="form-control" id="email1" placeholder="Enter email">
-                  </div>
-                  <div class="form-group">
-                    <label>Your Text</label>
-                    <textarea class="form-control" name="Message" rows="3"></textarea>
-                  </div>
-                  <br>
-                  <button type="submit" class="btn btn-large btn-success">SUBMIT</button>
+                <form role="form" action="#" method="post" enctype="plain">
+                    <div class="form-group">
+                        <label for="name1">Your Name</label>
+                        <input type="name" name="Name" class="form-control" id="name1" placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email1">Email address</label>
+                        <input type="email" name="Mail" class="form-control" id="email1" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                        <label>Your Text</label>
+                        <textarea class="form-control" name="Message" rows="3"></textarea>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-large btn-success">SUBMIT</button>
                 </form>
             </div>
         </div>
     </div>
+
     <div id="copywrap">
-    <div class="container">
-        <br>
-        <hr>
-        <footer>
-            <p>&copy; Team Panthera 20XX</p>
-            <p style="text-align:center">Organization is hard. Panthera can help</p>
-        </footer>
-        <img src="img/panther.jpg" style="width:500px">
-    </div>
+        <div class="container">
+            <br>
+            <!-- <hr> -->
+            <footer>
+                <p>&copy; Team Panthera 20XX</p>
+                <p style="text-align:center">Organization is hard. Panthera can help</p>
+            </footer>
+            <img src="img/panther.jpg" style="width:500px">
+        </div>
     </div>
     <!-- /container -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script>
-    window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>')
-    </script>
 
+    <!-- Javascripts -->
     <script src="js/vendor/bootstrap.min.js"></script>
-
     <script src="js/main.js"></script>
     <script src="js/scale.fix.js"></script>
+    <script src="js/smoothscroll.js"></script>
 </body>
 
 </html>

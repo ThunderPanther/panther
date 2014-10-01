@@ -1,5 +1,15 @@
+/* ==========================================================================
+   custom styles
+   ========================================================================== */
+
 body{
 	background-color: #000;
+	font-weight: 300;
+	font-size: 16px;
+	color: white;
+
+	-webkit-font-smoothing: antialiased;
+    -webkit-overflow-scrolling: touch;
 }
 #footerwrap{
 	padding: 50px;
@@ -10,15 +20,57 @@ body{
 #docswrap{
 	padding: 50px;
 }
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
+#buttonlink {
+        color: #fff;
+    }
+.jumbotron p{
+	color: #888888;
+}
 
+p {
+    line-height: 28px;
+    margin-bottom: 25px;
+}
 
+.centered {
+    text-align: center;
+}
 
+a {
+    color: #3bc492;
+    word-wrap: break-word;
 
+    -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+    transition: color 0.1s ease-in, background 0.1s ease-in;
+}
 
+a:hover,
+a:focus {
+    color: #c0392b;
+    text-decoration: none;
+    outline: 0;
+}
 
+a:before,
+a:after {
+    -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+    transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+ hr {
+    /*display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;*/
+}
 
 
 

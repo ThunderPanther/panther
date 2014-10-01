@@ -24,11 +24,32 @@
     <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 </head>
 
-<body>
-
+<body data-spy="scroll" data-offset="0" data-target="#navigation">
+<div id="navigation" class="navbar navbar-default navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#"><b>Pratt</b></a>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#home" class="smothscroll">Panthera</a></li>
+                <li class=""><a href="#video" class="smothscroll">Video</a></li>
+                <li class=""><a href="#meetus" class="smothScroll">Team Panthera</a></li>
+                <li class=""><a href="#contact" class="smothScroll">Contact</a></li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div>
+        </div>
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
+    <section id="home" name="home"></section>
+    
         <div class="container">
+        <div class="jumbotron">
             <div class="col-md-3 col-md-pull-1">
                 <img alt="panther" src="img/panther.png" width="400">
             </div>
@@ -41,6 +62,7 @@
         </div>
     </div>
 
+<section id="video" name="video"></section>
     <div class="container">
         <div class="col-md-4">
             <h3>Get Panthered!</h3>
@@ -61,6 +83,7 @@
         <hr>
     </div>
 
+<section id="meetus" name="meetus"></section>
     <div class="container" style="">
         <br>
         <h3 style="text-align:center">Meat Team Panthera</h3>
@@ -112,6 +135,9 @@
         <hr>
     </div>
 
+<div class="container">
+    <h3 style="text-align:center;">Panthera Documentation</h3>
+</div>
     <div class="container">
         <br>
         <hr>

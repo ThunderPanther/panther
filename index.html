@@ -33,13 +33,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#"><b>Pratt</b></a>
+              <a class="navbar-brand" href="#"><b>Panthera</b></a>
             </div>
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li class="active"><a href="#home" class="smothscroll">Panthera</a></li>
+                <li class="active"><a href="#home" class="smothscroll">Description</a></li>
                 <li class=""><a href="#video" class="smothscroll">Video</a></li>
                 <li class=""><a href="#meetus" class="smothScroll">Team Panthera</a></li>
+                <li class=""><a href="#docs" class="smothScroll">Panthera Documentation</a></li>
                 <li class=""><a href="#contact" class="smothScroll">Contact</a></li>
               </ul>
             </div><!--/.nav-collapse -->
@@ -47,9 +48,9 @@
         </div>
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <section id="home" name="home"></section>
-    
+    <div class="jumbotron" style="padding-top:50px;">
         <div class="container">
-        <div class="jumbotron">
+        
             <div class="col-md-3 col-md-pull-1">
                 <img alt="panther" src="img/panther.png" width="400">
             </div>
@@ -63,7 +64,8 @@
     </div>
 
 <section id="video" name="video"></section>
-    <div class="container">
+    <div id="videowrap" style="padding: 50px;">
+    <div class="container" style="padding: 50px;">
         <div class="col-md-4">
             <h3>Get Panthered!</h3>
             <hr>
@@ -82,9 +84,11 @@
         </div>
         <hr>
     </div>
+    </div>
 
 <section id="meetus" name="meetus"></section>
-    <div class="container" style="">
+<div id="meetuswrap" style="background-color: #151515;">
+    <div class="container" style="padding: 50px ;">
         <br>
         <h3 style="text-align:center">Meat Team Panthera</h3>
         <div class="col-md-4">
@@ -109,10 +113,10 @@
             <p>
             
                 <ul>
-                    <li>Age years old</li>
+                    <li>20 years old</li>
                     <li>Not Comcast</li>
                     <li>Likes To Whistle</li>
-                    <li>Hates To Thistle</li>
+                    <li>David is his middle name.</li>
                     <li>Fifth Thing</li>
                 </ul>
             </p>
@@ -124,20 +128,50 @@
             <p>
             
                 <ul>
-                    <li>Age years old</li>
+                    <li>22 years old</li>
                     <li>Not Comcast</li>
                     <li>Likes To Learn</li>
-                    <li>Hates To Learn</li>
-                    <li>Fifth Thing</li>
+                    <li>Loves The Binding of Isaac</li>
+                    <li>6'5" Tall</li>
                 </ul>
             </p>
         </div>
         <hr>
     </div>
-
+</div>
+<section id="docs" name="docs"></section>
+<div id="docswrap">
 <div class="container">
     <h3 style="text-align:center;">Panthera Documentation</h3>
+<a href="https://docs.google.com/document/d/1oibPpQBq7_hrteSxnDexunHIcH6Dk478LK6fiagY4OA/edit?usp=sharing">Requirements Document</a>
 </div>
+</div>
+<section id="contact" name="contact"></section>
+<div id="footerwrap" style="background-color: #555;">
+        <div class="container">            
+            <div class="col-lg-12">
+                <h3>Drop Us A Line</h3>
+                <br>
+                <form role="form" action="#" method="post" enctype="plain"> 
+                  <div class="form-group">
+                    <label for="name1">Your Name</label>
+                    <input type="name" name="Name" class="form-control" id="name1" placeholder="Your Name">
+                  </div>
+                  <div class="form-group">
+                    <label for="email1">Email address</label>
+                    <input type="email" name="Mail" class="form-control" id="email1" placeholder="Enter email">
+                  </div>
+                  <div class="form-group">
+                    <label>Your Text</label>
+                    <textarea class="form-control" name="Message" rows="3"></textarea>
+                  </div>
+                  <br>
+                  <button type="submit" class="btn btn-large btn-success">SUBMIT</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="copywrap">
     <div class="container">
         <br>
         <hr>
@@ -145,6 +179,8 @@
             <p>&copy; Team Panthera 20XX</p>
             <p style="text-align:center">Organization is hard. Panthera can help</p>
         </footer>
+        <img src="img/panther.jpg" style="width:500px">
+    </div>
     </div>
     <!-- /container -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

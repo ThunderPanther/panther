@@ -4079,11 +4079,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-default {
-  background-color: #060606;
-  border-color: #282828;
+  background-color: #151515;
+  border-color: #e7e7e7;
 }
 .navbar-default .navbar-brand {
-  color: #ffffff;
+  color: #777777;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {

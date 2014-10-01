@@ -8,13 +8,15 @@
 
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" 
+      type="image/icon" 
+      href="img/favicon.ico" />
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap-theme.css">
     <link rel="stylesheet" href="css/main.css">
     <style>
         body {
             padding-top: 50px;
-            padding-bottom: 20px;
         }
     </style>
     <script src="js/jquery.min.js"></script>
@@ -22,7 +24,7 @@
 
     $(document).ready(function() {
         $(window).blur(function(e) {
-            var message = titleMessage[getRandomInt(0, 10)];
+            var message = titleMessage[getRandomInt(0, 11)];
             document.title = message;
         });
         $(window).focus(function(e) {
@@ -65,18 +67,19 @@
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <section id="home" name="home"></section>
-    <div class="jumbotron" style="padding-top:50px;">
+    <div id="jumbowrap">
+    <div class="jumbotron">
         <div class="container">
 
-            <div class="col-md-3 col-md-pull-1">
+            <div class="col-md-4 col-sm-12">
                 <img alt="panther" src="img/panther.png" width="400">
             </div>
-            <div class="col-md-8" style="position: relative; top: 50%; transform: translateY(75%)">
+            <div class="col-md-8 col-sm-12" style="position: relative; top: 50%; transform: translateY(75%)">
                 <h1>Panthera</h1>
                 <p>Panthera is an organizational revolution. Panthera pushes you towards your goals using our new, game-changing hierarchical task model. By breaking down massive, daunting tasks into smaller, easier subtasks, you will make amazing progress towards your goals. Panthera will connect you with like-minded peers, and encourages interaction between peers who have similar goals creating a robust and supportive support system.</p>
             </div>
         </div>
-    </div>
+    </div></div>
 
     <section id="video" name="video"></section>
     <div id="videowrap" style="padding: 50px;">

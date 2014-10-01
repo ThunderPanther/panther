@@ -3,7 +3,7 @@
    ========================================================================== */
 
 body{
-	background-color: #000;
+	background-color: #686868;
 	font-weight: 300;
 	font-size: 16px;
 	color: white;
@@ -16,13 +16,23 @@ body{
 }
 #copywrap{
 	padding: 50px;
+	background-color: #000;
+	border-top: #f8f8f8 solid 5px;
 }
 #docswrap{
 	padding: 50px;
 }
 #buttonlink {
         color: #fff;
-    }
+}
+#jumbowrap{
+	
+
+}
+.jumbotron{
+	padding-top: 50px;
+	border-bottom: #f8f8f8 solid 5px;
+}
 .jumbotron p{
 	color: #888888;
 }

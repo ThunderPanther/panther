@@ -1,15 +1,16 @@
 var originalTitle = "Panthera";
     var titleMessage = ["Come Back Soon!", 
-                        "I Miss You", 
+                        "Panthera Misses You", 
                         "Panthers Rule!",  
                         "Is That Nick Saban?", 
                         "Not Gmail", 
-                        "Mypanther", 
+                        "myPanthera", 
                         "Conner Lines", 
                         "Is That A Panther?", 
                         "Panthera!!", 
                         "Pantherb",
-                        "Hello Dr. Gray"
+                        "Hello Dr. Gray",
+                        ":)"
                         ];
 
     function getRandomInt(min, max) {

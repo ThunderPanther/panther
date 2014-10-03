@@ -30,11 +30,15 @@ body{
 
 }
 .jumbotron{
+    background-color: #f8f8f8;
 	padding-top: 50px;
-	border-bottom: #f8f8f8 solid 5px;
+	border-bottom: #888888 solid 5px;
 }
 .jumbotron p{
 	color: #888888;
+}
+.jumbotron h1{
+    color:#777777;
 }
 
 p {
@@ -82,13 +86,6 @@ a:after {
     padding: 0;*/
 }
 
-
-
-
-
-
-
-
-
-
-
+.navbar{
+    opacity: 0.5;
+}

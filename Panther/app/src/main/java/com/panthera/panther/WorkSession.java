@@ -14,6 +14,10 @@ public class WorkSession {
 
     public WorkSession() {}
 
+    public Date getStartTime() {
+        return startTime;
+    }
+
     public void completeSession() {
 
     }

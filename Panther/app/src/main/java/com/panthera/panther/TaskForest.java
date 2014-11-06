@@ -13,6 +13,10 @@ public class TaskForest {
         rootTasks.add(task);
     }
 
+    public Task getTask() {
+        return null;
+    }
+
     public void removeTask(Task task) {
         // Should a string be used here instead?
     }

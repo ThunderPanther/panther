@@ -1,4 +1,4 @@
-package com.panthera.panther;
+package com.thunderpanther.panther;
 
 import java.util.ArrayList;
 import java.util.Date;

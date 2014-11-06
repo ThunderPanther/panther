@@ -1,4 +1,4 @@
-package com.panthera.panther;
+package com.thunderpanther.panther;
 
 /**
  * Created by Steven on 11/6/2014.

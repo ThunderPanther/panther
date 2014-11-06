@@ -1,4 +1,4 @@
-package com.panthera.panther;
+package com.thunderpanther.panther;
 
 import android.app.Activity;
 import android.os.Bundle;

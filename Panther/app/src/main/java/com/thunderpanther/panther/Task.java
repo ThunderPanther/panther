@@ -15,41 +15,57 @@ public class Task {
 
     private String name;
     private int weight;
+    // Maybe a map?
     private List<String> notes = new ArrayList<String>();
+
+    private int timeWorked;
     private int timeEstimate;
     private Color displayColor;
 
-    public Task() {
-        this(null);
+    public Task(String name, int weight, int timeEstimate) {
+        this(name, weight, timeEstimate, null);
     }
 
-    public Task(Task parentTask) {
+    public Task(String name, int weight, int timeEstimate, Task parentTask) {
+        this.name = name;
+        this.weight = weight;
+        this.timeEstimate = timeEstimate;
         parent = parentTask;
     }
 
-    public void logWork() {
+    public void logWork(int timeWorked) {
+        this.timeWorked += timeWorked;
+        timeEstimate -= timeWorked;
     }
 
-    public void editWork() {
+    public void logWork(int timeWorked, int newEstimate) {
+        this.timeWorked += timeWorked;
+        timeEstimate = newEstimate;
     }
 
-    public void addNote() {
-        // TODO: implement this
+    public void editWork(int newTimeWorked, int newTimeEstimate) {
+        timeWorked = newTimeWorked;
+        timeEstimate = newTimeEstimate;
     }
 
-    public void editNote() {
-        // TODO: implement this
+    public void addNote(String note) {
+        notes.add(note);
     }
 
-    public void removeNote() {
+    public void editNote(int index, String note) {
+        notes.set(index, note);
+    }
+
+    public void removeNote(int index) {
+        notes.remove(index);
     }
 
     public void removeChild(Task task) {
-        Iterator<Task> iter = children.iterator();
-        while (iter.hasNext()) {
-            Task curTask = iter.next();
+        Iterator<Task> iterator = children.iterator();
+        while (iterator.hasNext()) {
+            Task curTask = iterator.next();
             if (curTask.equals(task)) {
-                iter.remove();
+                iterator.remove();
                 break;
             } else {
                 curTask.removeChild(task);

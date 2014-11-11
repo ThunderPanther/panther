@@ -27,12 +27,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.thunderpanther.panther.R;
 
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link NavigationDrawerFragment.OnFragmentInteractionListener} interface
+ * {@a link NavigationDrawerFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link NavigationDrawerFragment#newInstance} factory method to
+ * Use the {@a link NavigationDrawerFragment#newInstance} factory method to
  * create an instance of this fragment.
  *
  */
@@ -105,15 +107,23 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
+
+        List<TaskPair> taskList = User.getCurrentUser().getTaskList();
+
+        String[] tasks = new String[taskList.size()];
+        for (int i = 0; i < taskList.size(); i++) {
+            StringBuilder indentBuilder = new StringBuilder();
+            for (int j = 0; j < taskList.get(i).depth; j++) {
+                indentBuilder.append("  ");
+            }
+            tasks[i] = indentBuilder.append(taskList.get(i).name).toString();
+        }
+
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
-                new String[]{
-                        getString(R.string.title_section1),
-                        getString(R.string.title_section2),
-                        getString(R.string.title_section3),
-                }));
+                tasks));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }

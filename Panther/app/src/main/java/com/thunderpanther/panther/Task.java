@@ -81,4 +81,11 @@ public class Task {
     public String getName() {
         return name;
     }
+
+    public void addToList(List<TaskPair> taskList, int depth) {
+        taskList.add(new TaskPair(name, depth));
+        for (Task t :children) {
+            t.addToList(taskList, depth + 1);
+        }
+    }
 }

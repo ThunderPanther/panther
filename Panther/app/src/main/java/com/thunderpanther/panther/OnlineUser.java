@@ -16,6 +16,11 @@ public class OnlineUser extends User {
         serverHandler = ServerHandler.openConnection();
     }
 
+    @Override
+    protected void loadData() {
+        // Query the database to load tasks/worksessions
+    }
+
     public List<Object> getPeersAndGroupsList() {
         return null;
     }

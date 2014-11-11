@@ -24,4 +24,12 @@ public class TaskForest {
     public void addTask(Task task, Task parent) {
         parent.addChild(task);
     }
+
+    public List<TaskPair> getTaskList() {
+        List<TaskPair> taskList = new ArrayList<TaskPair>();
+        for (Task t : rootTasks) {
+            t.addToList(taskList, 0);
+        }
+        return taskList;
+    }
 }

@@ -22,7 +22,11 @@ public class TaskForest {
     }
 
     public void addTask(Task task, Task parent) {
-        parent.addChild(task);
+        if (parent != null) {
+            parent.addChild(task);
+        } else {
+            rootTasks.add(task);
+        }
     }
 
     public List<TaskPair> getTaskList() {

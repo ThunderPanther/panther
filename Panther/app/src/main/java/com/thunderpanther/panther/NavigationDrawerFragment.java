@@ -27,6 +27,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.thunderpanther.panther.R;
 
+<<<<<<< Updated upstream
 import java.util.List;
 
 /**
@@ -38,6 +39,9 @@ import java.util.List;
  * create an instance of this fragment.
  *
  */
+=======
+
+>>>>>>> Stashed changes
 public class NavigationDrawerFragment extends Fragment {
     /**
      * Remember the position of the selected item.
@@ -285,6 +289,7 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     private ActionBar getActionBar() {
+
         return getActivity().getActionBar();
     }
 

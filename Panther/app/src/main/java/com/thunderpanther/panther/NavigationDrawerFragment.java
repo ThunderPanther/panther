@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,7 +116,7 @@ public class NavigationDrawerFragment extends Fragment {
                 if (taskList != null && newTaskList.get(i).name == taskList.get(j).name) {
                     newCollapsed[i] = isCollapsed[j++];
                 } else {
-                    newCollapsed[i] = true;
+                    newCollapsed[i] = false;
                 }
             }
 
@@ -198,6 +199,7 @@ public class NavigationDrawerFragment extends Fragment {
                 R.string.navigation_drawer_open,  /* "open drawer" description for accessibility */
                 R.string.navigation_drawer_close  /* "close drawer" description for accessibility */
         ) {
+
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
@@ -210,7 +212,12 @@ public class NavigationDrawerFragment extends Fragment {
 
             @Override
             public void onDrawerOpened(View drawerView) {
+                refreshTaskList();
+
                 super.onDrawerOpened(drawerView);
+
+                // Refresh the list if necessary
+
                 if (!isAdded()) {
                     return;
                 }

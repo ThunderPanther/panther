@@ -1,6 +1,7 @@
 package com.thunderpanther.panther;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -122,6 +123,10 @@ public class NavigationDrawerFragment extends Fragment {
 
             taskList = newTaskList;
             isCollapsed = newCollapsed;
+        } else if (taskList == null) {
+            taskList = currentUser.getTaskList();
+            // Defaults to false
+            isCollapsed = new boolean[taskList.size()];
         }
 
         List<String> tasks = new ArrayList<String>();
@@ -215,8 +220,6 @@ public class NavigationDrawerFragment extends Fragment {
                 refreshTaskList();
 
                 super.onDrawerOpened(drawerView);
-
-                // Refresh the list if necessary
 
                 if (!isAdded()) {
                     return;

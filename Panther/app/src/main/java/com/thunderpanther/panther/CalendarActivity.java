@@ -88,7 +88,7 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
     }
 
     public void onSectionAttached(int number) {
-        switch (number) {
+        /*switch (number) {
             case 1:
                 mTitle = getString(R.string.title_section1);
                 break;
@@ -98,7 +98,7 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
             case 3:
                 mTitle = getString(R.string.title_section3);
                 break;
-        }
+        }*/
     }
 
     public void restoreActionBar() {

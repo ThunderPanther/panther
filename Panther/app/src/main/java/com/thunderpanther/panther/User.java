@@ -51,6 +51,10 @@ public class User {
         return taskList.getTaskList();
     }
 
+    public boolean isTaskListModified() {
+        return taskList.isModified();
+    }
+
     public void addTask(Task t) {
         // TODO: Make the parent thing work
         taskList.addTask(t, null);

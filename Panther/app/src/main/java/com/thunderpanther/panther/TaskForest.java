@@ -8,6 +8,8 @@ import java.util.List;
  */
 public class TaskForest {
     private List<Task> rootTasks = new ArrayList<Task>();
+    private List<TaskPair> taskStringList = new ArrayList<TaskPair>();
+    private boolean taskStringModified = true;
 
     public void addRoot(Task task) {
         rootTasks.add(task);
@@ -19,6 +21,7 @@ public class TaskForest {
 
     public void removeTask(Task task) {
         // Should a string be used here instead?
+        taskStringModified = true;
     }
 
     public void addTask(Task task, Task parent) {
@@ -27,13 +30,21 @@ public class TaskForest {
         } else {
             rootTasks.add(task);
         }
+        taskStringModified = true;
+    }
+
+    public boolean isModified() {
+        return taskStringModified;
     }
 
     public List<TaskPair> getTaskList() {
-        List<TaskPair> taskList = new ArrayList<TaskPair>();
-        for (Task t : rootTasks) {
-            t.addToList(taskList, 0);
+        if (taskStringModified) {
+           taskStringList.clear();
+            for (Task t : rootTasks) {
+                t.addToList(taskStringList, 0);
+            }
+            taskStringModified = false;
         }
-        return taskList;
+        return taskStringList;
     }
 }

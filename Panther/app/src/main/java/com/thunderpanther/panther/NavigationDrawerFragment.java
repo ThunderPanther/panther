@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.thunderpanther.panther.R;
 
 //<<<<<<< Updated upstream
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,6 +73,9 @@ public class NavigationDrawerFragment extends Fragment {
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
 
+    List<TaskPair> taskList;
+    boolean[] isCollapsed;
+
     public NavigationDrawerFragment() {
     }
 
@@ -100,6 +104,51 @@ public class NavigationDrawerFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+    private void refreshTaskList() {
+        User currentUser = User.getCurrentUser();
+        if (currentUser.isTaskListModified()) {
+            List<TaskPair> newTaskList = currentUser.getTaskList();
+            boolean[] newCollapsed = new boolean[newTaskList.size()];
+
+            int j = 0;
+            for (int i = 0; i < newTaskList.size(); i++) {
+                if (taskList != null && newTaskList.get(i).name == taskList.get(j).name) {
+                    newCollapsed[i] = isCollapsed[j++];
+                } else {
+                    newCollapsed[i] = true;
+                }
+            }
+
+            taskList = newTaskList;
+            isCollapsed = newCollapsed;
+        }
+
+        List<String> tasks = new ArrayList<String>();
+
+        for (int i = 0; i < taskList.size(); i++) {
+            StringBuilder indentBuilder = new StringBuilder();
+            int depth = taskList.get(i).depth;
+
+            for (int j = 0; j < depth; j++) {
+                indentBuilder.append("    ");
+            }
+            tasks.add(indentBuilder.append(taskList.get(i).name).toString());
+
+            if (isCollapsed[i]) {
+                // Skip past tasks with greater depth
+                int j;
+                for (j = i + 1; j < taskList.size() && taskList.get(j).depth > depth; j++);
+                i = j - 1;
+            }
+        }
+
+        mDrawerListView.setAdapter(new ArrayAdapter<String>(
+                getActionBar().getThemedContext(),
+                android.R.layout.simple_list_item_activated_1,
+                android.R.id.text1,
+                tasks));
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -112,22 +161,8 @@ public class NavigationDrawerFragment extends Fragment {
             }
         });
 
-        List<TaskPair> taskList = User.getCurrentUser().getTaskList();
+        refreshTaskList();
 
-        String[] tasks = new String[taskList.size()];
-        for (int i = 0; i < taskList.size(); i++) {
-            StringBuilder indentBuilder = new StringBuilder();
-            for (int j = 0; j < taskList.get(i).depth; j++) {
-                indentBuilder.append("  ");
-            }
-            tasks[i] = indentBuilder.append(taskList.get(i).name).toString();
-        }
-
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
-                getActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                tasks));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }

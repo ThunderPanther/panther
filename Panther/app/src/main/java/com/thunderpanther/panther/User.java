@@ -1,6 +1,5 @@
 package com.thunderpanther.panther;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,6 +9,7 @@ public class User {
 
     private static User currentUser = null;
     private TaskForest taskList = new TaskForest();
+
 
     protected User() {}
 

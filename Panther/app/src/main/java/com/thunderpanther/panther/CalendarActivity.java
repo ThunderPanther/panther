@@ -25,7 +25,7 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
 
     // Database fields
     private SQLiteDatabase database;
-    private TasksSQLiteHelper dbHelper;
+    TasksSQLiteHelper TDBHelper = new TasksSQLiteHelper(getApplicationContext());
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -147,7 +147,14 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
 
         Task t = new Task(name, weight, 0);
         User.getCurrentUser().addTask(t, null);
+        storeTaskInDB(t);
     }
+
+    public void storeTaskInDB(Task t){
+        TDBHelper.addTaskToDB( t.getId(), t.getName());
+    }
+
+
 
     /**
      * A placeholder fragment containing a simple view.

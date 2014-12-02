@@ -11,4 +11,13 @@
     <string name="action_settings">Settings</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="create_task_title">Create Task</string>
+
+    <string name="task_name_hint">Name</string>
+    <string name="task_time_hint">Time Estimate</string>
+    <string name="task_weight_hint">Weight</string>
+    <string name="task_time_units">Hours</string>
+
+    <string name="dialogOK">Create Task</string>
+    <string name="dialogCancel">Cancel</string>
 </resources>

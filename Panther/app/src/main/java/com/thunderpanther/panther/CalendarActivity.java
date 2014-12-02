@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,9 +83,9 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();
+        //fragmentManager.beginTransaction()
+         //       .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+         //       .commit();
     }
 
     public void onSectionAttached(int number) {
@@ -110,6 +111,8 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        //inflater.inflate(R.menu.calendar, menu);
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
@@ -121,16 +124,25 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
         return super.onCreateOptionsMenu(menu);
     }
 
+    public void addTask() {
+        Toast.makeText(getApplicationContext(), "addtask", Toast.LENGTH_LONG).show();
+
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+       switch(item.getItemId()) {
+           case R.id.action_settings:
+               return true;
+           case R.id.add_task:
+               addTask();
+               return true;
+           default:
+               return super.onOptionsItemSelected(item);
+       }
     }
 
     /**

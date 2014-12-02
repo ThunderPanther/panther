@@ -27,6 +27,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.thunderpanther.panther.R;
+import android.widget.Button;
+
 
 //<<<<<<< Updated upstream
 import java.util.ArrayList;
@@ -148,6 +150,13 @@ public class NavigationDrawerFragment extends Fragment {
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
                 tasks));
+
+        //Button button = (Button) findViewById(R.id.button_send);
+        //button.setOnClickListener(new View.OnClickListener() {
+         //   public void onClick(View v) {
+                // Do something in response to button click
+         //   }
+       // });
     }
 
     @Override

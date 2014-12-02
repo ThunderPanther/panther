@@ -5,4 +5,13 @@
         android:title="@string/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never" />
+
+    <item android:id="@+id/add_task"
+        android:icon="@drawable/ic_drawer"
+        android:title="AddTaskButton"
+        android:showAsAction="ifRoom" />
+    <!-- Settings, should always be in the overflow
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:showAsAction="never" />-->
 </menu>

@@ -57,8 +57,13 @@ public class CreateTaskDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (listener != null) {
-                            listener.onCreateTaskConfirm(mTaskName.getText().toString(),
-                                    Integer.parseInt(mTaskWeight.getText().toString()));
+                            int weight;
+                            try {
+                                weight = Integer.parseInt(mTaskWeight.getText().toString());
+                            } catch (NumberFormatException e) {
+                                weight = 0;
+                            }
+                            listener.onCreateTaskConfirm(mTaskName.getText().toString(), weight);
                         }
                     }
                 })

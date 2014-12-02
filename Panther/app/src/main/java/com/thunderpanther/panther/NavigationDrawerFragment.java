@@ -44,9 +44,6 @@ import java.util.List;
  * create an instance of this fragment.
  *
  */
-//=======
-
-//>>>>>>> Stashed changes
 public class NavigationDrawerFragment extends Fragment {
     /**
      * Remember the position of the selected item.
@@ -100,22 +97,6 @@ public class NavigationDrawerFragment extends Fragment {
         // Select either the default item (0) or the last selected item.
         selectItem(mCurrentSelectedPosition);
 
-        /*
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Test Dialog")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        // do some stuff
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // other thing
-                    }
-                }).create().show();
-        */
     }
 
     @Override

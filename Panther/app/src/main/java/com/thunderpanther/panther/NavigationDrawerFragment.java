@@ -127,13 +127,17 @@ public class NavigationDrawerFragment extends Fragment {
 
     private void refreshTaskList() {
         User currentUser = User.getCurrentUser();
-        if (currentUser.isTaskListModified()) {
+        if (taskList == null) {
+            taskList = currentUser.getTaskList();
+            // Defaults to false
+            isCollapsed = new boolean[taskList.size()];
+        } else if (currentUser.isTaskListModified()) {
             List<TaskPair> newTaskList = currentUser.getTaskList();
             boolean[] newCollapsed = new boolean[newTaskList.size()];
 
             int j = 0;
-            for (int i = 0; i < newTaskList.size(); i++) {
-                if (taskList != null && newTaskList.get(i).name == taskList.get(j).name) {
+            for (int i = 0; i < newCollapsed.length && j < isCollapsed.length; i++) {
+                if (taskList != null && newTaskList.get(i).id == taskList.get(j).id) {
                     newCollapsed[i] = isCollapsed[j++];
                 } else {
                     newCollapsed[i] = false;
@@ -142,10 +146,6 @@ public class NavigationDrawerFragment extends Fragment {
 
             taskList = newTaskList;
             isCollapsed = newCollapsed;
-        } else if (taskList == null) {
-            taskList = currentUser.getTaskList();
-            // Defaults to false
-            isCollapsed = new boolean[taskList.size()];
         }
 
         List<String> tasks = new ArrayList<String>();
@@ -282,7 +282,7 @@ public class NavigationDrawerFragment extends Fragment {
             if (taskList != null) {
                 CreateTaskDialogFragment dialog = new CreateTaskDialogFragment();
                 dialog.setTitle(taskName);
-                dialog.show(getFragmentManager(), "dialog");
+                dialog.show(getFragmentManager(), "create_task_dialog");
             }
         }
         if (mDrawerLayout != null) {

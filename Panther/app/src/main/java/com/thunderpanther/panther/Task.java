@@ -13,6 +13,7 @@ public class Task {
     private Task parent = null;
     private List<Task> children = new ArrayList<Task>();
 
+    private int id;
     private String name;
     private int weight;
     // Maybe a map?
@@ -22,12 +23,15 @@ public class Task {
     private int timeEstimate;
     private Color displayColor;
 
+    private static int currentID = 0;
+
     public Task(String name, int weight, int timeEstimate) {
         this(name, weight, timeEstimate, null);
     }
 
     public Task(String name, int weight, int timeEstimate, Task parentTask) {
-        this.name = name;
+        this.id = currentID++;
+        this.name = /* "@" + (currentID) + ": " + */ name;
         this.weight = weight;
         this.timeEstimate = timeEstimate;
         parent = parentTask;
@@ -83,7 +87,7 @@ public class Task {
     }
 
     public void addToList(List<TaskPair> taskList, int depth) {
-        taskList.add(new TaskPair(name, depth));
+        taskList.add(new TaskPair(id, name, depth));
         for (Task t :children) {
             t.addToList(taskList, depth + 1);
         }

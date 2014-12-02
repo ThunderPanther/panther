@@ -1,7 +1,9 @@
 package com.thunderpanther.panther;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -97,6 +99,23 @@ public class NavigationDrawerFragment extends Fragment {
 
         // Select either the default item (0) or the last selected item.
         selectItem(mCurrentSelectedPosition);
+
+        /*
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("Test Dialog")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // do some stuff
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // other thing
+                    }
+                }).create().show();
+        */
     }
 
     @Override
@@ -259,6 +278,12 @@ public class NavigationDrawerFragment extends Fragment {
         mCurrentSelectedPosition = position;
         if (mDrawerListView != null) {
             mDrawerListView.setItemChecked(position, true);
+            String taskName = ((String)mDrawerListView.getAdapter().getItem(position)).trim();
+            if (taskList != null) {
+                CreateTaskDialogFragment dialog = new CreateTaskDialogFragment();
+                dialog.setTitle(taskName);
+                dialog.show(getFragmentManager(), "dialog");
+            }
         }
         if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(mFragmentContainerView);

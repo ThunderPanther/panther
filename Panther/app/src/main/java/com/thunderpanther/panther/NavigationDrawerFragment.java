@@ -1,6 +1,9 @@
 package com.thunderpanther.panther;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -43,9 +46,6 @@ import java.util.List;
  * create an instance of this fragment.
  *
  */
-//=======
-
-//>>>>>>> Stashed changes
 public class NavigationDrawerFragment extends Fragment {
     /**
      * Remember the position of the selected item.
@@ -98,6 +98,7 @@ public class NavigationDrawerFragment extends Fragment {
 
         // Select either the default item (0) or the last selected item.
         selectItem(mCurrentSelectedPosition);
+
     }
 
     @Override
@@ -109,13 +110,17 @@ public class NavigationDrawerFragment extends Fragment {
 
     private void refreshTaskList() {
         User currentUser = User.getCurrentUser();
-        if (currentUser.isTaskListModified()) {
+        if (taskList == null) {
+            taskList = currentUser.getTaskList();
+            // Defaults to false
+            isCollapsed = new boolean[taskList.size()];
+        } else if (currentUser.isTaskListModified()) {
             List<TaskPair> newTaskList = currentUser.getTaskList();
             boolean[] newCollapsed = new boolean[newTaskList.size()];
 
             int j = 0;
-            for (int i = 0; i < newTaskList.size(); i++) {
-                if (taskList != null && newTaskList.get(i).name == taskList.get(j).name) {
+            for (int i = 0; i < newCollapsed.length && j < isCollapsed.length; i++) {
+                if (taskList != null && newTaskList.get(i).id == taskList.get(j).id) {
                     newCollapsed[i] = isCollapsed[j++];
                 } else {
                     newCollapsed[i] = false;
@@ -225,8 +230,6 @@ public class NavigationDrawerFragment extends Fragment {
 
                 super.onDrawerOpened(drawerView);
 
-                // Refresh the list if necessary
-
                 if (!isAdded()) {
                     return;
                 }
@@ -265,6 +268,12 @@ public class NavigationDrawerFragment extends Fragment {
         mCurrentSelectedPosition = position;
         if (mDrawerListView != null) {
             mDrawerListView.setItemChecked(position, true);
+            String taskName = ((String)mDrawerListView.getAdapter().getItem(position)).trim();
+            if (taskList != null) {
+                CreateTaskDialogFragment dialog = new CreateTaskDialogFragment();
+                dialog.setTitle(taskName);
+                dialog.show(getFragmentManager(), "create_task_dialog");
+            }
         }
         if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(mFragmentContainerView);

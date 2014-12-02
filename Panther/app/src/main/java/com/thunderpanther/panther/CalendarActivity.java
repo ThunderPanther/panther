@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,7 +18,8 @@ import android.widget.CalendarView.OnDateChangeListener;
 import android.widget.Toast;
 
 
-public class CalendarActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+public class CalendarActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks,
+    CreateTaskDialogFragment.CreateTaskListener {
 
     CalendarView calendar;
 
@@ -143,6 +145,15 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
            default:
                return super.onOptionsItemSelected(item);
        }
+    }
+
+    @Override
+    public void onCreateTaskConfirm(String name, int weight) {
+        Log.d("info", "Task created! (not really)");
+        Log.d("info", name + " " + weight);
+
+        Task t = new Task(name, weight, 0);
+        User.getCurrentUser().addTask(t, null);
     }
 
     /**

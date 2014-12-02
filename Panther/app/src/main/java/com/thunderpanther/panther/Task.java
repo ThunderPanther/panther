@@ -88,8 +88,15 @@ public class Task {
 
     public void addToList(List<TaskPair> taskList, int depth) {
         taskList.add(new TaskPair(id, name, depth));
-        for (Task t :children) {
+        for (Task t : children) {
             t.addToList(taskList, depth + 1);
+        }
+    }
+
+    public void addRefToList(List<Task> taskList) {
+        taskList.add(this);
+        for (Task t : children) {
+            t.addRefToList(taskList);
         }
     }
 }

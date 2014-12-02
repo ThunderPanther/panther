@@ -51,6 +51,8 @@ public class User {
         return taskList.getTaskList();
     }
 
+    public List<Task> getTaskRefList() { return taskList.getTaskRefList(); }
+
     public boolean isTaskListModified() {
         return taskList.isModified();
     }

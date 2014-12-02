@@ -269,11 +269,14 @@ public class NavigationDrawerFragment extends Fragment {
         if (mDrawerListView != null) {
             mDrawerListView.setItemChecked(position, true);
             String taskName = ((String)mDrawerListView.getAdapter().getItem(position)).trim();
+            // TODO: pull up edit task
+            /*
             if (taskList != null) {
                 CreateTaskDialogFragment dialog = new CreateTaskDialogFragment();
                 dialog.setTitle(taskName);
                 dialog.show(getFragmentManager(), "create_task_dialog");
             }
+            */
         }
         if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(mFragmentContainerView);

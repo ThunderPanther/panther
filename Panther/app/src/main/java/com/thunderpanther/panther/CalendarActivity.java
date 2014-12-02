@@ -57,8 +57,8 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
         calendar.setShowWeekNumber(false);
 
         // sets the first day of week according to Calendar.
-        // here we set Monday as the first day of the Calendar
-        calendar.setFirstDayOfWeek(2);
+        // here we set Sunday as the first day of the Calendar
+        calendar.setFirstDayOfWeek(1);
 
         //The background color for the selected week.
         calendar.setSelectedWeekBackgroundColor(getResources().getColor(R.color.green));
@@ -127,8 +127,9 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
     }
 
     public void createTask() {
-        Toast.makeText(getApplicationContext(), "createTask", Toast.LENGTH_LONG).show();
-
+        CreateTaskDialogFragment dialog = new CreateTaskDialogFragment();
+        // dialog.setTitle(taskName);
+        dialog.show(getFragmentManager(), "create_task_dialog");
     }
 
     @Override

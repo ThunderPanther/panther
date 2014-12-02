@@ -30,21 +30,6 @@ public class User {
     protected void loadData() {
         // Load the data from local storage
 
-        // TODO: Don't actually do this
-        // TEST TEST TEST TEST TEST
-
-        Task rootTask1 = new Task("Test root task", 0, 0);
-        currentUser.addTask(rootTask1);
-
-        Task taskTree[] = new Task[17];
-        taskTree[1] = new Task("Task tree task 1", 0, 0);
-        currentUser.addTask(taskTree[1]);
-        for (int i = 2; i < 17; i++) {
-            taskTree[i] = new Task("Task tree task" + i, 0, 0);
-            currentUser.addTask(taskTree[i], taskTree[i / 2]);
-        }
-
-        // END TEST TEST TEST TEST
     }
 
     public List<TaskPair> getTaskList() {

@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
@@ -19,6 +20,10 @@ import android.widget.Toast;
 public class CalendarActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     CalendarView calendar;
+
+    // Database fields
+    private SQLiteDatabase database;
+    private TasksSQLiteHelper dbHelper;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.

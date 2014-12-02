@@ -124,8 +124,8 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void addTask() {
-        Toast.makeText(getApplicationContext(), "addtask", Toast.LENGTH_LONG).show();
+    public void createTask() {
+        Toast.makeText(getApplicationContext(), "createTask", Toast.LENGTH_LONG).show();
 
     }
 
@@ -137,8 +137,8 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
        switch(item.getItemId()) {
            case R.id.action_settings:
                return true;
-           case R.id.add_task:
-               addTask();
+           case R.id.create_task:
+               createTask();
                return true;
            default:
                return super.onOptionsItemSelected(item);

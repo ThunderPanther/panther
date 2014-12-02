@@ -6,9 +6,9 @@
         android:orderInCategory="100"
         android:showAsAction="never" />
 
-    <item android:id="@+id/add_task"
+    <item android:id="@+id/create_task"
         android:icon="@drawable/ic_drawer"
-        android:title="AddTaskButton"
+        android:title="createTaskButton"
         android:showAsAction="ifRoom" />
     <!-- Settings, should always be in the overflow
     <item android:id="@+id/action_settings"

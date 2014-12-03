@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by qmoor_000 on 12/2/2014.
@@ -19,17 +20,20 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     // Database creation sql statement
-    private static final String DATABASE_CREATE = "create table"
+    private static final String DATABASE_CREATE = "CREATE TABLE "
             + TABLE_TASKS + "(" + COLUMN_TASKID
-            + " integer primary key, " + COLUMN_TASKNAME
-            + " text not null);";
+            + " INTEGER PRIMARY KEY, " + COLUMN_TASKNAME
+            + " TEXT NOT NULL);";
 
     public TasksSQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.i("TasksSQLiteHelperDB","Creating Database");
         db.execSQL(DATABASE_CREATE);
+
+        Log.i("TasksSQLiteHelperDB","Database Created");
     }
 
     @Override
@@ -39,13 +43,16 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
     }
 
     public void addTaskToDB( int id, String name){
+        Log.i("TasksSQLiteHelperDB","Adding Task To DB");
         ContentValues values = new ContentValues();
         values.put(COLUMN_TASKID, id);
         values.put(COLUMN_TASKNAME, name);
-
+        Log.i("Add Task To DB","Getting Writable Database");
         SQLiteDatabase db = this.getWritableDatabase();
-
+        Log.i("Add Task To DB","Got Writable Database ");
         db.insert(TABLE_TASKS, null, values);
+
+        Log.i("TasksSQLiteHelperDB","Task Added To DB");
         db.close();
 
     }

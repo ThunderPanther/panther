@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -25,8 +24,8 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
     CalendarView calendar;
 
     // Database fields
-    private SQLiteDatabase database;
-    TasksSQLiteHelper TDBHelper = new TasksSQLiteHelper(getApplicationContext());
+    //private SQLiteDatabase database;
+    TasksSQLiteHelper TDBHelper;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -164,6 +163,7 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
     }
 
     public void storeTaskInDB(Task t){
+        TasksSQLiteHelper TDBHelper = new TasksSQLiteHelper(getApplicationContext());
         TDBHelper.addTaskToDB( t.getId(), t.getName());
     }
 

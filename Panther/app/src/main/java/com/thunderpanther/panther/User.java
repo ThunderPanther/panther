@@ -10,14 +10,15 @@ public class User {
     private static User currentUser = null;
     private TaskForest taskList = new TaskForest();
 
+    //TasksSQLiteHelper TDBHelper = new TasksSQLiteHelper(getActivity());
 
     protected User() {}
 
-    public static final User getCurrentUser() {
+    public static final User getCurrentUser(TasksSQLiteHelper TDBHelper) {
         // TODO: Check this out, is singleton the right way to go?
         if (currentUser == null) {
             currentUser = new User();
-            currentUser.loadData();
+            currentUser.loadData(TDBHelper);
         }
 
         return currentUser;
@@ -27,8 +28,10 @@ public class User {
         // Magic mumbo jumbo
     }
 
-    protected void loadData() {
+    protected void loadData(TasksSQLiteHelper TDBHelper) {
         // Load the data from local storage
+        // for each task in the database call add task is what I would do but I cant get an
+        // application context in this type of class
 
     }
 
@@ -56,5 +59,8 @@ public class User {
     public void storeData() {
         // Called when the application is closed/loses focus?
         // For an offline user, this would just store the data locally
+
+        //for task in task list put them in the database is what I would do but I cant get an
+        // application context in this type of class
     }
 }

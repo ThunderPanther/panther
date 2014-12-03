@@ -45,6 +45,9 @@ import java.util.List;
  *
  */
 public class NavigationDrawerFragment extends Fragment {
+
+
+    TasksSQLiteHelper TDBHelper = new TasksSQLiteHelper(getActivity());
     /**
      * Remember the position of the selected item.
      */
@@ -107,7 +110,7 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     private void refreshTaskList() {
-        User currentUser = User.getCurrentUser();
+        User currentUser = User.getCurrentUser(TDBHelper);
         if (taskList == null) {
             taskList = currentUser.getTaskList();
             // Defaults to false

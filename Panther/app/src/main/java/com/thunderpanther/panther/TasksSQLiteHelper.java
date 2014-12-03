@@ -57,7 +57,11 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
 
     }
 
-    public String taskExists(int id){
+//    public TaskForest getUserTasks(){
+//
+//    }
+
+    public String findTask(int id){
         String query = "Select * FROM " + TABLE_TASKS + " WHERE " + COLUMN_TASKID + " = " + id;
 
         SQLiteDatabase db = this.getWritableDatabase();

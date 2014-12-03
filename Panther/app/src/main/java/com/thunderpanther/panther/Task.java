@@ -94,6 +94,10 @@ public class Task {
         return name;
     }
 
+<<<<<<< HEAD
+    public void setName(String n) {
+        name = n;
+=======
     public int getWeight() {
         return weight;
     }
@@ -108,6 +112,7 @@ public class Task {
 
     public void setTimeEstimate(double time) {
         timeEstimate = time;
+>>>>>>> FETCH_HEAD
     }
 
     public void addToList(List<TaskPair> taskList, int depth) {

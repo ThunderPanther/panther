@@ -111,6 +111,12 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
         actionBar.setTitle(mTitle);
     }
 
+    public void removeAtomPayOnClickHandler(View v) {
+        //Task itemToRemove = (AtomPayment)v.getTag();
+        // adapter.remove(itemToRemove);
+        Toast.makeText(this, "Collapse/Expand.", Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

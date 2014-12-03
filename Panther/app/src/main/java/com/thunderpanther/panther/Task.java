@@ -86,6 +86,10 @@ public class Task {
         return name;
     }
 
+    public void setName(String n) {
+        name = n;
+    }
+
     public void addToList(List<TaskPair> taskList, int depth) {
         taskList.add(new TaskPair(id, name, depth));
         for (Task t :children) {

@@ -31,7 +31,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.thunderpanther.panther.R;
 import android.widget.Button;
-
+import android.view.View.OnClickListener;
+import android.widget.AdapterView.OnItemClickListener;
 
 //<<<<<<< Updated upstream
 import java.util.ArrayList;
@@ -75,7 +76,7 @@ public class NavigationDrawerFragment extends Fragment {
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
-
+    private TaskListAdapter adapter;
     List<TaskPair> taskList;
     boolean[] isCollapsed;
 
@@ -96,10 +97,18 @@ public class NavigationDrawerFragment extends Fragment {
             mFromSavedInstanceState = true;
         }
 
+        //setUpListViewAdapter();
+        //setupAddPaymentButton();
         // Select either the default item (0) or the last selected item.
         selectItem(mCurrentSelectedPosition);
 
+
+
     }
+
+
+
+
 
     @Override
     public void onActivityCreated (Bundle savedInstanceState) {
@@ -131,6 +140,7 @@ public class NavigationDrawerFragment extends Fragment {
             isCollapsed = newCollapsed;
         }
 
+
         List<String> tasks = new ArrayList<String>();
 
         for (int i = 0; i < taskList.size(); i++) {
@@ -150,18 +160,13 @@ public class NavigationDrawerFragment extends Fragment {
             }
         }
 
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
-                getActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                tasks));
+        mDrawerListView.setAdapter(new TaskListAdapter(
+                getActivity(),
+                R.layout.task_list_item,
+                taskList));
 
-        //Button button = (Button) findViewById(R.id.button_send);
-        //button.setOnClickListener(new View.OnClickListener() {
-         //   public void onClick(View v) {
-                // Do something in response to button click
-         //   }
-       // });
+
+
     }
 
     @Override
@@ -169,13 +174,28 @@ public class NavigationDrawerFragment extends Fragment {
                              Bundle savedInstanceState) {
         mDrawerListView = (ListView) inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
-        mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mDrawerListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectItem(position);
+                Toast.makeText(getActivity(), "Clicked a Task.", Toast.LENGTH_SHORT).show();
             }
         });
 
+
+        /*mDrawerListView.setOnItemClickListener(
+                new OnItemClickListener()
+                {
+                    @Override
+                    public void onItemClick(AdapterView<?> arg0, View view,
+                                            int position, long id) {
+
+                        //Take action here.
+
+
+                    }
+                }
+        );*/
         refreshTaskList();
 
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
@@ -333,7 +353,7 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         if (item.getItemId() == R.id.action_settings) {
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Collapse/Expand.", Toast.LENGTH_SHORT).show();
             return true;
         }
 

@@ -84,7 +84,7 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        FragmentManager fragmentManager = getFragmentManager();
+        // FragmentManager fragmentManager = getFragmentManager();
         //fragmentManager.beginTransaction()
          //       .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
          //       .commit();
@@ -115,6 +115,8 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
         //Task itemToRemove = (AtomPayment)v.getTag();
         // adapter.remove(itemToRemove);
         Toast.makeText(this, "Collapse/Expand.", Toast.LENGTH_SHORT).show();
+
+
     }
 
     @Override
@@ -165,8 +167,9 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
 
     @Override
     public void onDeleteTask(int id) {
-        // TODO: fix!
-        User.getCurrentUser().removeTask(null);
+        User.getCurrentUser().removeTask(id);
+        // TODO: is this necessary?
+        // mNavigationDrawerFragment.refreshTaskList();
     }
 
     /**

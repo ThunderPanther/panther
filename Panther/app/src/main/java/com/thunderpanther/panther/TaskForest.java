@@ -1,6 +1,7 @@
 package com.thunderpanther.panther;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -18,17 +19,31 @@ public class TaskForest {
     }
 
     public Task getTask(int id) {
+        for (Task t : rootTasks) {
+            if (t.getID() == id) {
+                return t;
+            }
+            Task subTask = t.getTask(id);
+            if (subTask != null) {
+                return subTask;
+            }
+        }
         return null;
     }
 
-    public void removeTask(Task task) {
-        // Should a string be used here instead?
+    public void removeTask(int taskID) {
+        Iterator<Task> iterator = rootTasks.iterator();
+        while (iterator.hasNext()) {
+            Task curTask = iterator.next();
+            if (curTask.getID() == taskID) {
+                iterator.remove();
+                break;
+            } else {
+                curTask.removeChild(taskID);
+            }
+        }
         taskStringModified = true;
         tasksModified = true;
-    }
-
-    public void removeTask(int id) {
-        // TODO: this
     }
 
     public void addTask(Task task, Task parent) {

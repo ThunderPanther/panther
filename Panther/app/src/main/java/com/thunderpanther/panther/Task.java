@@ -64,17 +64,30 @@ public class Task {
         notes.remove(index);
     }
 
-    public void removeChild(Task task) {
+    public void removeChild(int taskID) {
         Iterator<Task> iterator = children.iterator();
         while (iterator.hasNext()) {
             Task curTask = iterator.next();
-            if (curTask.equals(task)) {
+            if (curTask.id == taskID) {
                 iterator.remove();
                 break;
             } else {
-                curTask.removeChild(task);
+                curTask.removeChild(taskID);
             }
         }
+    }
+
+    public Task getTask(int id) {
+        for (Task t : children) {
+            if (t.getID() == id) {
+                return t;
+            }
+            Task subTask = t.getTask(id);
+            if (subTask != null) {
+                return subTask;
+            }
+        }
+        return null;
     }
 
     public void addChild(Task child) {
@@ -94,10 +107,6 @@ public class Task {
         return name;
     }
 
-<<<<<<< HEAD
-    public void setName(String n) {
-        name = n;
-=======
     public int getWeight() {
         return weight;
     }
@@ -112,7 +121,6 @@ public class Task {
 
     public void setTimeEstimate(double time) {
         timeEstimate = time;
->>>>>>> FETCH_HEAD
     }
 
     public void addToList(List<TaskPair> taskList, int depth) {

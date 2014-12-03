@@ -3,6 +3,7 @@ package com.thunderpanther.panther;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,16 +24,19 @@ public class TaskListAdapter extends ArrayAdapter<TaskPair> {
     private List<TaskPair> items;
     private int layoutResourceId;
     private Context context;
+    // TODO: test!
+    private FragmentManager fragmentManager;
 
-    public TaskListAdapter(Context context, int layoutResourceId, List<TaskPair> items) {
+    public TaskListAdapter(Context context, int layoutResourceId, List<TaskPair> items, FragmentManager fragmentManager) {
         super(context, layoutResourceId, items);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
         this.items = items;
+        this.fragmentManager = fragmentManager;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View row = convertView;
         TaskHolder holder = null;
 
@@ -45,12 +49,21 @@ public class TaskListAdapter extends ArrayAdapter<TaskPair> {
         holder.removePaymentButton.setTag(holder.task);
 
         holder.name = (TextView)row.findViewById(R.id.atomPay_name);
-        holder.name.setOnClickListener(new View.OnClickListener() {
+
+        View.OnClickListener clickTaskListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("onclick", "clicked task");
+                TaskPair taskPair = items.get(position);
+                Task targetTask = User.getCurrentUser().getTask(taskPair.id);
+
+                CreateTaskDialogFragment dialog = new CreateTaskDialogFragment();
+                dialog.setExistingTask(targetTask);
+                dialog.show(fragmentManager, "create_task_dialog");
             }
-        });
+        };
+
+        holder.name.setOnClickListener(clickTaskListener);
         //setNameTextChangeListener(holder);
         //holder.value = (TextView)row.findViewById(R.id.atomPay_value);
         //setValueTextListeners(holder);

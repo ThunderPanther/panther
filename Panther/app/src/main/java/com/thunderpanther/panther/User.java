@@ -55,8 +55,8 @@ public class User {
         taskList.addTask(t, p);
     }
 
-    public void removeTask(Task t) {
-        taskList.removeTask(t);
+    public void removeTask(int id) {
+        taskList.removeTask(id);
     }
 
     public void storeData() {

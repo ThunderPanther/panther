@@ -163,9 +163,8 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerListView.setAdapter(new TaskListAdapter(
                 getActivity(),
                 R.layout.task_list_item,
-                taskList));
-
-
+                taskList,
+                getFragmentManager()));
 
     }
 

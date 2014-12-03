@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,8 +62,8 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
         calendar.setShowWeekNumber(false);
 
         // sets the first day of week according to Calendar.
-        // here we set Monday as the first day of the Calendar
-        calendar.setFirstDayOfWeek(2);
+        // here we set Sunday as the first day of the Calendar
+        calendar.setFirstDayOfWeek(1);
 
         //The background color for the selected week.
         calendar.setSelectedWeekBackgroundColor(getResources().getColor(R.color.green));
@@ -89,9 +90,9 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();
+        //fragmentManager.beginTransaction()
+         //       .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+         //       .commit();
     }
 
     public void onSectionAttached(int number) {
@@ -117,6 +118,8 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        //inflater.inflate(R.menu.calendar, menu);
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
@@ -128,16 +131,35 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
         return super.onCreateOptionsMenu(menu);
     }
 
+    public void createTask() {
+        CreateTaskDialogFragment dialog = new CreateTaskDialogFragment();
+        // dialog.setTitle(taskName);
+        dialog.show(getFragmentManager(), "create_task_dialog");
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+       switch(item.getItemId()) {
+           case R.id.action_settings:
+               return true;
+           case R.id.create_task:
+               createTask();
+               return true;
+           default:
+               return super.onOptionsItemSelected(item);
+       }
+    }
+
+    @Override
+    public void onCreateTaskConfirm(String name, int weight) {
+        Log.d("info", "Task created! (not really)");
+        Log.d("info", name + " " + weight);
+
+        Task t = new Task(name, weight, 0);
+        User.getCurrentUser().addTask(t, null);
     }
 
     @Override

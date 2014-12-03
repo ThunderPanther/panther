@@ -32,6 +32,10 @@ public class User {
 
     }
 
+    public Task getTask(int id) {
+        return taskList.getTask(id);
+    }
+
     public List<TaskPair> getTaskList() {
         return taskList.getTaskList();
     }

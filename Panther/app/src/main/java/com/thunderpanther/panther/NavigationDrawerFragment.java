@@ -284,19 +284,40 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
+    private int getTaskListID(int position) {
+        for (int i = 0, k = 0; i < taskList.size(); i++, k++) {
+            if (k == position) {
+                return taskList.get(k).id;
+            }
+
+            int depth = taskList.get(i).depth;
+
+            if (isCollapsed[i]) {
+                // Skip past tasks with greater depth
+                int j;
+                for (j = i + 1; j < taskList.size() && taskList.get(j).depth > depth; j++);
+                i = j - 1;
+            }
+        }
+        // Error, not found (will this ever happen)
+        return -1;
+    }
+
     private void selectItem(int position) {
         mCurrentSelectedPosition = position;
         if (mDrawerListView != null) {
             mDrawerListView.setItemChecked(position, true);
+
+            // TODO: get task ID
             String taskName = ((String)mDrawerListView.getAdapter().getItem(position)).trim();
             // TODO: pull up edit task
-            /*
+
             if (taskList != null) {
                 CreateTaskDialogFragment dialog = new CreateTaskDialogFragment();
-                dialog.setTitle(taskName);
+                int taskID = getTaskListID(position);
+                dialog.setExistingTask(User.getCurrentUser().getTask(taskID));
                 dialog.show(getFragmentManager(), "create_task_dialog");
             }
-            */
         }
         if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(mFragmentContainerView);

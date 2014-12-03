@@ -20,7 +20,7 @@ public class Task {
     private List<String> notes = new ArrayList<String>();
 
     private int timeWorked;
-    private int timeEstimate;
+    private double timeEstimate;
     private Color displayColor;
 
     private static int currentID = 0;
@@ -82,8 +82,32 @@ public class Task {
         child.parent = this;
     }
 
+    public int getID() {
+        return id;
+    }
+
+    public void setName(String n) {
+        name = n;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int w) {
+        weight = w;
+    }
+
+    public double getTimeEstimate() {
+        return timeEstimate;
+    }
+
+    public void setTimeEstimate(double time) {
+        timeEstimate = time;
     }
 
     public void addToList(List<TaskPair> taskList, int depth) {

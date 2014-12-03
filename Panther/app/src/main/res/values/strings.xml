@@ -18,6 +18,11 @@
     <string name="task_weight_hint">Weight</string>
     <string name="task_time_units">Hours</string>
 
-    <string name="dialogOK">Create Task</string>
+    <string name="dialogCreateTask">Create Task</string>
+    <string name="dialogConfirm">Confirm</string>
+    <string name="dialogDelete">Delete</string>
     <string name="dialogCancel">Cancel</string>
+
+    <string name="confirmDelete">Confirm Task Deletion</string>
+    <string name="confirmDeleteMessage">Are you sure you want to delete the task </string>
 </resources>

@@ -150,11 +150,17 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
 
     @Override
     public void onCreateTaskConfirm(String name, int weight) {
-        Log.d("info", "Task created! (not really)");
+        Log.d("info", "Task created! (really)");
         Log.d("info", name + " " + weight);
 
         Task t = new Task(name, weight, 0);
         User.getCurrentUser().addTask(t, null);
+    }
+
+    @Override
+    public void onDeleteTask(int id) {
+        // TODO: fix!
+        User.getCurrentUser().removeTask(null);
     }
 
     /**

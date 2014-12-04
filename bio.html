@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Panthera</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" 
+      type="image/icon" 
+      href="img/favicon.ico" />
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        body {
+            padding-top: 50px;
+        }
+    </style>
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript">
+
+    $(document).ready(function() {
+        console.log("You Are Wonderful")
+        $(window).blur(function(e) {
+            var message = titleMessage[getRandomInt(0, 11)];
+            document.title = message;
+        });
+        $(window).focus(function(e) {
+            document.title = originalTitle;
+        });
+
+    });
+
+    </script>
+</head>
+
+<body data-spy="scroll" data-offset="0" data-target="#navigation">
+    <div id="navigation" class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><b>Panthera</b></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class=""><a href="#meetus" class="smothScroll">Team Panthera</a>
+                    </li>
+                    <li class=""><a href="#contact" class="smothScroll">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+
+    <section id="meetus" name="meetus"></section>
+    <div id="meetuswrap" style="background-color: #151515;">
+        <div class="container" style="padding: 50px ;">
+            <br>
+            <h3 style="text-align:center; font-size:3em">Team Panther</h3>
+            <div class="row"><div class="col-md-4">
+                            <br>
+                            <img alt="Steven Hohs" src="img/shohs.jpg" width="200" class="img-responsive img-circle">
+                            <div class="caption"><h3>Steven Hohs (<a href="https://github.com/shohs" class="user-mention"> @shohs</a>)</h3>
+                                                        <p>
+                                                            <ul>
+                                                                <li>Age years old</li>
+                                                                <li>Not Comcast</li>
+                                                                <li>Likes To Earn</li>
+                                                                <li>Like to play "The Binding of Isaac"</li>
+                                                                <li>Loves Android</li>
+                                                            </ul>
+                                                        </p></div>
+                        </div>
+            
+                        <div class="col-md-4">
+                            <br>
+                            <img alt="Conner Lines" src="img/condor.jpg" width="200" class="img-responsive img-circle">
+                            <div class="caption"><h3>Conner Lines (<a href="https://github.com/cdlines" class="user-mention"> @cdlines</a>)</h3>
+                                                        <p>
+                                                            <ul>
+                                                                <li>20 years old</li>
+                                                                <li>Not Comcast</li>
+                                                                <li>Likes To Whistle</li>
+                                                                <li>David is his middle name.</li>
+                                                                <li>Adores Software Engineering</li>
+                                                            </ul>
+                                                        </p></div>
+                        </div>
+            
+                        <div class="col-md-4">
+                            <br>
+                            <img alt="Quadarius Moore" src="img/ore.jpg" width="200" class="img-responsive img-circle">
+                            <div class="caption"><h3>Quadarius Moore (<a href="https://github.com/quadarius" class="user-mention">@Quadarius</a>)</h3>
+                                                        <p>
+                                        
+                                                            <ul>
+                                                                <li>22 years old</li>
+                                                                <li>Like to build websites</li>
+                                                                <li>Likes To Learn</li>
+                                                                <li>Loves The Binding of Isaac</li>
+                                                                <li>Huge fan</li>
+                                                            </ul>
+                                                        </p></div>
+                        </div>
+                        <!-- <hr> -->
+                    </div></div>
+    </div>
+
+    <section id="contact" name="contact"></section>
+    <div id="footerwrap" style="background-color: #555;">
+        <h3 style="text-align:center;">Contact Us!</h3>
+        <div class="container" style="text-align:center;">
+            <div class="col-md-4">
+                <a href="mailto:shohs@crimson.ua.edu?Subject=Panther%20App" target="_top">shohs@crimson.ua.edu</a>
+            </div>
+            <div class="col-md-4">
+            <a href="mailto:cdlines@crimson.ua.edu?Subject=Panther%20App" target="_top">cdlines@crimson.ua.edu</a>
+            </div>
+            <div class="col-md-4">
+                <a href="mailto:qkmoore@crimson.ua.edu?Subject=Panther%20App" target="_top">qkmoore@crimson.ua.edu</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="copywrap">
+        <div class="container">
+            <br>
+            <!-- <hr> -->
+            <footer>
+                <p>&copy; Team Panthera 20XX</p>
+                <p style="text-align:center">Organization is hard. Panthera can help</p>
+            </footer>
+            <img src="img/panther.jpg" style="width:500px">
+        </div>
+    </div>
+    <!-- /container -->
+
+    <!-- Javascripts -->
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/scale.fix.js"></script>
+    <script src="js/smoothscroll.js"></script>
+</body>
+
+</html>

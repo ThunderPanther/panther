@@ -63,7 +63,7 @@ public class CreateTaskDialogFragment extends DialogFragment {
 
         if (editingTask) {
             mTaskName.setText(mExistingTask.getName());
-            mTaskWeight.setText(mExistingTask.getWeight());
+            mTaskWeight.setText(mExistingTask.getWeight() + "");
             mTaskTimeEstimate.setText(mExistingTask.getTimeEstimate() + "");
         }
 
@@ -117,7 +117,9 @@ public class CreateTaskDialogFragment extends DialogFragment {
 
                     View deleteDialogView = inflater.inflate(R.layout.delete_task_confirmation_dialog, null);
                     TextView message = (TextView)deleteDialogView.findViewById(R.id.delete_task_confirmation_dialog_message);
-                    message.setText(R.string.confirmDeleteMessage + "\"" + mExistingTask.getName() + "\"?");
+                    message.setText(getString(R.string.confirmDeleteMessage)
+                            + " \"" + mExistingTask.getName() + "\"? "
+                            + getString(R.string.allSubtasksDeleted));
 
                     confirmBuilder.setTitle(R.string.confirmDelete)
                             .setView(deleteDialogView)
@@ -131,9 +133,9 @@ public class CreateTaskDialogFragment extends DialogFragment {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     // TODO: is this the desired behavior?
-                                    CreateTaskDialogFragment.this.getDialog().cancel();
+                                    // CreateTaskDialogFragment.this.getDialog().cancel();
                                 }
-                            });
+                            }).create().show();
                 }
             });
         }

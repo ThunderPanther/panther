@@ -117,7 +117,7 @@ public class NavigationDrawerFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
-    private void refreshTaskList() {
+    public void refreshTaskList() {
         User currentUser = User.getCurrentUser();
         if (taskList == null) {
             taskList = currentUser.getTaskList();
@@ -141,7 +141,8 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
 
-        List<String> tasks = new ArrayList<String>();
+        // List<String> tasks = new ArrayList<String>();
+        List<TaskPair> tasks = new ArrayList<TaskPair>();
 
         for (int i = 0; i < taskList.size(); i++) {
             StringBuilder indentBuilder = new StringBuilder();
@@ -150,7 +151,8 @@ public class NavigationDrawerFragment extends Fragment {
             for (int j = 0; j < depth; j++) {
                 indentBuilder.append("    ");
             }
-            tasks.add(indentBuilder.append(taskList.get(i).name).toString());
+            // tasks.add(indentBuilder.append(taskList.get(i).name).toString());
+            tasks.add(taskList.get(i));
 
             if (isCollapsed[i]) {
                 // Skip past tasks with greater depth
@@ -163,7 +165,8 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerListView.setAdapter(new TaskListAdapter(
                 getActivity(),
                 R.layout.task_list_item,
-                taskList,
+                // taskList,
+                tasks,
                 getFragmentManager()));
 
     }
@@ -283,7 +286,7 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-    private int getTaskListID(int position) {
+    public int getTaskListID(int position) {
         for (int i = 0, k = 0; i < taskList.size(); i++, k++) {
             if (k == position) {
                 return taskList.get(k).id;
@@ -300,6 +303,20 @@ public class NavigationDrawerFragment extends Fragment {
         }
         // Error, not found (will this ever happen)
         return -1;
+    }
+
+    public int getTaskListPosition(int id) {
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).id == id) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void toggleCollapsed(int position) {
+        isCollapsed[position] ^= true;
+        refreshTaskList();
     }
 
     private void selectItem(int position) {

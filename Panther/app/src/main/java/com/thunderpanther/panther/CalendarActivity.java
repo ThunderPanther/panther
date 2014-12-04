@@ -114,7 +114,11 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
     public void removeAtomPayOnClickHandler(View v) {
         //Task itemToRemove = (AtomPayment)v.getTag();
         // adapter.remove(itemToRemove);
-        Toast.makeText(this, "Collapse/Expand.", Toast.LENGTH_SHORT).show();
+        TaskPair p = (TaskPair)v.getTag();
+        int position = mNavigationDrawerFragment.getTaskListPosition(p.id);
+        mNavigationDrawerFragment.toggleCollapsed(position);
+
+        Toast.makeText(this, "Collapse/Expand." + position, Toast.LENGTH_SHORT).show();
 
 
     }
@@ -169,7 +173,7 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
     public void onDeleteTask(int id) {
         User.getCurrentUser().removeTask(id);
         // TODO: is this necessary?
-        // mNavigationDrawerFragment.refreshTaskList();
+        mNavigationDrawerFragment.refreshTaskList();
     }
 
     /**

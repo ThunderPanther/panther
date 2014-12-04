@@ -18,17 +18,20 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import java.util.Date;
+
 
 public class DayViewActivity extends ListActivity {
     private static int HOURS_PER_DAY = 24;
 
     Context mContext = this;
-
+    TasksSQLiteHelper TDBHelper;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //getListView().setBackgroundColor(Color.rgb(12, 12, 12));
         getListView().setDividerHeight(0);
+        TDBHelper = new TasksSQLiteHelper(this);
         setListAdapter(new ListAdapter() {
 
             @Override
@@ -88,7 +91,7 @@ public class DayViewActivity extends ListActivity {
                     @Override
                     public void onClick(View arg0) {
                         // TODO Auto-generated method stub
-                        AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+                        /*AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
 
                         alert.setTitle("New Event");
                         alert.setMessage("Event:");
@@ -110,7 +113,9 @@ public class DayViewActivity extends ListActivity {
                             public void onClick(DialogInterface dialog, int whichButton) {
                             }
                         });
-                        alert.show();
+                        alert.show();*/
+                        ScheduleTaskDialogFragment dialog = new ScheduleTaskDialogFragment();
+                        dialog.show(getFragmentManager(), "schedule_worksession_dialog");
                     }
 
                 });
@@ -148,5 +153,18 @@ public class DayViewActivity extends ListActivity {
             }
 
         });
+    }
+
+
+    public void onCreateWorkSession(Date startTime, Date endTime, Task target) {
+        // TODO: DB id!
+        WorkSession w = new WorkSession(TDBHelper.getNextWorkSessionId(), startTime, endTime, target);
+        User.getCurrentUser().scheduleWorkSession(w);
+        storeWSinDB(w);
+    }
+
+    private void storeWSinDB(WorkSession w) {
+        // TODO:
+        TDBHelper.addWorkSessionToDB(w.getID(), w.getTarget().getID(), w.getStartTime(), w.getEndTime());
     }
 }

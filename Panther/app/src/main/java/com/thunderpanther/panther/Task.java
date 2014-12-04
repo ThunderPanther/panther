@@ -25,11 +25,11 @@ public class Task {
 
     private static int currentID = 0;
 
-    public Task(String name, int weight, int timeEstimate) {
+    public Task(String name, int weight, double timeEstimate) {
         this(name, weight, timeEstimate, null);
     }
 
-    public Task(String name, int weight, int timeEstimate, Task parentTask) {
+    public Task(String name, int weight, double timeEstimate, Task parentTask) {
         this.id = currentID++;
         this.name = /* "@" + (currentID) + ": " + */ name;
         this.weight = weight;

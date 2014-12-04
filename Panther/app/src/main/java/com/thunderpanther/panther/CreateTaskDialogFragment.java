@@ -18,7 +18,7 @@ import android.widget.TextView;
 public class CreateTaskDialogFragment extends DialogFragment {
 
     public interface CreateTaskListener {
-        public void onCreateTaskConfirm(String name, int weight);
+        public void onCreateTaskConfirm(String name, int weight, double timeEst);
         public void onDeleteTask(int id);
     }
 
@@ -28,14 +28,17 @@ public class CreateTaskDialogFragment extends DialogFragment {
     private EditText mTaskName;
     private EditText mTaskWeight;
     private EditText mTaskTimeEstimate;
+    private TextView mParentTaskDisplay;
 
-    private Task mExistingTask;
+    private Task mExistingTask = null;
+    private Task mParentTask = null;
 
     public CreateTaskDialogFragment() {}
     public void setTitle(String title) {
         mTitle = title;
     }
     public void setExistingTask(Task task) { mExistingTask = task; }
+    public void setParentTask(Task parent) { mParentTask = parent; }
 
     @Override
     public void onAttach(Activity activity) {
@@ -58,6 +61,7 @@ public class CreateTaskDialogFragment extends DialogFragment {
         mTaskName = (EditText)dialogView.findViewById(R.id.task_name);
         mTaskWeight = (EditText)dialogView.findViewById(R.id.task_weight);
         mTaskTimeEstimate = (EditText)dialogView.findViewById(R.id.task_time_estimate);
+        mParentTaskDisplay = (TextView)dialogView.findViewById(R.id.parent_task_display);
 
         final boolean editingTask = mExistingTask != null;
 
@@ -65,6 +69,10 @@ public class CreateTaskDialogFragment extends DialogFragment {
             mTaskName.setText(mExistingTask.getName());
             mTaskWeight.setText(mExistingTask.getWeight() + "");
             mTaskTimeEstimate.setText(mExistingTask.getTimeEstimate() + "");
+        }
+
+        if (mParentTask != null) {
+            mParentTaskDisplay.setText(getString(R.string.dialogParent) + mParentTask.getName());
         }
 
         builder.setView(dialogView)
@@ -89,13 +97,19 @@ public class CreateTaskDialogFragment extends DialogFragment {
 
                         } else if (listener != null) {
 
-                            int weight;
+                            int weight, timeEst;
                             try {
                                 weight = Integer.parseInt(mTaskWeight.getText().toString());
                             } catch (NumberFormatException e) {
                                 weight = 0;
                             }
-                            listener.onCreateTaskConfirm(mTaskName.getText().toString(), weight);
+
+                            try {
+                                timeEst = Integer.parseInt(mTaskTimeEstimate.getText().toString());
+                            } catch (NumberFormatException e) {
+                                timeEst = 0;
+                            }
+                            listener.onCreateTaskConfirm(mTaskName.getText().toString(), weight, timeEst);
 
                         }
                     }

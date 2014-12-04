@@ -22,6 +22,7 @@
     <string name="dialogConfirm">Confirm</string>
     <string name="dialogDelete">Delete</string>
     <string name="dialogCancel">Cancel</string>
+    <string name="dialogParent">Parent Task: </string>
 
     <string name="EnterPays_atomPay_nameHint">nazwa platnosci</string>
     <string name="EnterPays_TextView_ZeroValue">0</string>

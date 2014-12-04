@@ -26,7 +26,7 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
     TaskListAdapter.OnLongClickerListener {
 
     CalendarView calendar;
-    TasksSQLiteHelper TDBHelper;
+    // TasksSQLiteHelper TDBHelper;
 
     boolean taskSelected = false;
     TaskPair selectedTask;
@@ -43,8 +43,8 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TDBHelper = new TasksSQLiteHelper(this);
-        User.setDB(TDBHelper);
+        Application.initDB(this);
+        User.setDB(Application.getDB());
         setContentView(R.layout.activity_calendar);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -97,9 +97,12 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
                     selectedTask = null;
                     taskSelected = false;
 
+                } else {
+                    intent.putExtra("id", -1);
                 }
-
-
+                intent.putExtra("year", year);
+                intent.putExtra("month", month);
+                intent.putExtra("day", day);
 
                 startActivity(intent);
             }
@@ -197,7 +200,7 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
         Log.d("info", "Task created! (really)");
         Log.d("info", name + " " + weight);
 
-        Task t = new Task(name, weight, timeEst, TDBHelper.getNextId());
+        Task t = new Task(name, weight, timeEst, Application.getDB().getNextId());
         Log.d("info", "It wont get here");
         User.getCurrentUser().addTask(t, parent);
         storeTaskInDB(t);
@@ -212,14 +215,14 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
         }else{
             pid = t.getParent().getID();
         }
-        TDBHelper.addTaskToDB( t.getID(), t.getName(), t.getWeight(), t.getTimeEstimate(), pid, t.isCompleted());
+        Application.getDB().addTaskToDB( t.getID(), t.getName(), t.getWeight(), t.getTimeEstimate(), pid, t.isCompleted());
     }
 
     @Override
     public void onDeleteTask(int id) {
         User.getCurrentUser().removeTask(id);
         // remove from db
-        TDBHelper.deleteTask(id);
+        Application.getDB().deleteTask(id);
         // TODO: is this necessary?
         mNavigationDrawerFragment.refreshTaskList();
     }
@@ -227,14 +230,14 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
     @Override
     public void onCreateWorkSession(Date startTime, Date endTime, Task target) {
         // TODO: DB id!
-        WorkSession w = new WorkSession(TDBHelper.getNextWorkSessionId(), startTime, endTime, target);
+        WorkSession w = new WorkSession(Application.getDB().getNextWorkSessionId(), startTime, endTime, target);
         User.getCurrentUser().scheduleWorkSession(w);
         storeWSinDB(w);
     }
 
     private void storeWSinDB(WorkSession w) {
         // TODO:
-        TDBHelper.addWorkSessionToDB(w.getID(), w.getTarget().getID(), w.getStartTime(), w.getEndTime());
+        Application.getDB().addWorkSessionToDB(w.getID(), w.getTarget().getID(), w.getStartTime(), w.getEndTime());
     }
 
     @Override

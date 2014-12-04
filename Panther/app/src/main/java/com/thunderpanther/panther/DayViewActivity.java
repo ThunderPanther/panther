@@ -18,20 +18,20 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import java.util.Date;
+import java.util.*;
 
 
-public class DayViewActivity extends ListActivity {
+public class DayViewActivity extends ListActivity implements ScheduleTaskDialogFragment.WorkSessionCreateListener {
     private static int HOURS_PER_DAY = 24;
 
     Context mContext = this;
-    TasksSQLiteHelper TDBHelper;
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        final int id = getIntent().getExtras().getInt("id");
+
         super.onCreate(savedInstanceState);
         //getListView().setBackgroundColor(Color.rgb(12, 12, 12));
         getListView().setDividerHeight(0);
-        TDBHelper = new TasksSQLiteHelper(this);
         setListAdapter(new ListAdapter() {
 
             @Override
@@ -71,7 +71,7 @@ public class DayViewActivity extends ListActivity {
             }
 
             @Override
-            public View getView(int position, View arg1, ViewGroup arg2) {
+            public View getView(final int position, View arg1, ViewGroup arg2) {
                 // TODO Auto-generated method stub
                 LayoutInflater inflater = getLayoutInflater();
                 View listItem = (View) inflater.inflate(R.layout.list_item, getListView(), false);
@@ -80,7 +80,7 @@ public class DayViewActivity extends ListActivity {
                 hourTV.setTextColor(Color.BLUE);
                 amTV.setTextColor(Color.BLUE);
                 final LinearLayout eventsLL = (LinearLayout) listItem.findViewById(R.id.eventsLL);
-                hourTV.setText(String.valueOf((position ) % 24));
+                hourTV.setText(String.valueOf((position )));
                 //I set am/pm for each entry ... you could specify which entries
                 if (((position >= 0) && (position <= 2)) || ((position >= 15) && (position <= 23)))
                     amTV.setText("AM");
@@ -114,8 +114,21 @@ public class DayViewActivity extends ListActivity {
                             }
                         });
                         alert.show();*/
-                        ScheduleTaskDialogFragment dialog = new ScheduleTaskDialogFragment();
-                        dialog.show(getFragmentManager(), "schedule_worksession_dialog");
+                        if (id >= 0) {
+                            java.util.Calendar cal = java.util.Calendar.getInstance();
+                            int year = getIntent().getExtras().getInt("year");
+                            int month = getIntent().getExtras().getInt("month");
+                            int day = getIntent().getExtras().getInt("day");
+
+                            cal.set(year, month + java.util.Calendar.JANUARY, day, position, 0, 0);
+                            Date startDate = cal.getTime();
+
+                            ScheduleTaskDialogFragment dialog = new ScheduleTaskDialogFragment();
+                            Task target = User.getCurrentUser().getTask(id);
+                            dialog.setTargetTask(target);
+                            dialog.setStartTime(startDate);
+                            dialog.show(getFragmentManager(), "schedule_worksession_dialog");
+                        }
                     }
 
                 });
@@ -155,16 +168,16 @@ public class DayViewActivity extends ListActivity {
         });
     }
 
-
+    @Override
     public void onCreateWorkSession(Date startTime, Date endTime, Task target) {
         // TODO: DB id!
-        WorkSession w = new WorkSession(TDBHelper.getNextWorkSessionId(), startTime, endTime, target);
+        WorkSession w = new WorkSession(Application.getDB().getNextWorkSessionId(), startTime, endTime, target);
         User.getCurrentUser().scheduleWorkSession(w);
         storeWSinDB(w);
     }
 
     private void storeWSinDB(WorkSession w) {
         // TODO:
-        TDBHelper.addWorkSessionToDB(w.getID(), w.getTarget().getID(), w.getStartTime(), w.getEndTime());
+        Application.getDB().addWorkSessionToDB(w.getID(), w.getTarget().getID(), w.getStartTime(), w.getEndTime());
     }
 }

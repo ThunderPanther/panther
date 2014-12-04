@@ -37,8 +37,8 @@ public class User {
     protected void loadData() {
         // Load the data from local storage
 
-        loadTasks(db);
-        loadWorkSessions(db);
+        loadTasks(Application.getDB());
+        loadWorkSessions(Application.getDB());
     }
 
     public Task getTask(int id) {

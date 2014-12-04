@@ -39,7 +39,7 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_TASKNAME+ " TEXT NOT NULL, "
             + COLUMN_WEIGHT+ " INTEGER, "
             + COLUMN_ESTIMATE+ " DOUBLE, "
-            + COLUMN_PARENTID +" INTEGER"
+            + COLUMN_PARENTID +" INTEGER, "
             + COLUMN_COMPLETED +" INTEGER);";
 
     private static final String DATABASE_CREATE2 = "CREATE TABLE "
@@ -220,8 +220,8 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COL_WS_ID, wsid);
         values.put(COL_TASK_ID, taskid);
-        values.put(COL_START, start.toString());
-        values.put(COL_END, end.toString());
+        values.put(COL_START, start.getTime());
+        values.put(COL_END, end.getTime());
 
         Log.i("Add Task To DB","Getting Writable Database");
         SQLiteDatabase db = this.getWritableDatabase();

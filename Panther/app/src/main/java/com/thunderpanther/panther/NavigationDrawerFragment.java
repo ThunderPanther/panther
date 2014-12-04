@@ -80,6 +80,8 @@ public class NavigationDrawerFragment extends Fragment {
     List<TaskPair> taskList;
     boolean[] isCollapsed;
 
+    private CalendarActivity calendarActivity;
+
     public NavigationDrawerFragment() {
     }
 
@@ -170,8 +172,17 @@ public class NavigationDrawerFragment extends Fragment {
                 // taskList,
                 tasks,
                 getFragmentManager(),
-                collapsed));
+                collapsed,
+                calendarActivity));
 
+    }
+
+    public void setCalendarActivity(CalendarActivity cal) {
+        this.calendarActivity = cal;
+    }
+
+    public void minimize() {
+        mDrawerLayout.closeDrawer(mDrawerListView);
     }
 
     @Override
@@ -187,7 +198,13 @@ public class NavigationDrawerFragment extends Fragment {
             }
         });
 
+        mDrawerListView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
 
+                return false;
+            }
+        });
         /*mDrawerListView.setOnItemClickListener(
                 new OnItemClickListener()
                 {

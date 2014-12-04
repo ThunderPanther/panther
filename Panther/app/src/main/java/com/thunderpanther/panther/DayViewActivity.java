@@ -77,12 +77,12 @@ public class DayViewActivity extends ListActivity {
                 hourTV.setTextColor(Color.BLUE);
                 amTV.setTextColor(Color.BLUE);
                 final LinearLayout eventsLL = (LinearLayout) listItem.findViewById(R.id.eventsLL);
-                hourTV.setText(String.valueOf((position + 9) % 24));
+                hourTV.setText(String.valueOf((position ) % 24));
                 //I set am/pm for each entry ... you could specify which entries
                 if (((position >= 0) && (position <= 2)) || ((position >= 15) && (position <= 23)))
-                    amTV.setText("am");
+                    amTV.setText("AM");
                 else
-                    amTV.setText("pm");
+                    amTV.setText("PM");
                 eventsLL.setOnClickListener(new View.OnClickListener() {
 
                     @Override

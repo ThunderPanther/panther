@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -21,11 +22,14 @@ import android.content.Intent;
 import java.util.Date;
 
 public class CalendarActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks,
-    CreateTaskDialogFragment.CreateTaskListener, ScheduleTaskDialogFragment.WorkSessionCreateListener {
+    CreateTaskDialogFragment.CreateTaskListener, ScheduleTaskDialogFragment.WorkSessionCreateListener,
+    TaskListAdapter.OnLongClickerListener {
 
     CalendarView calendar;
     TasksSQLiteHelper TDBHelper;
 
+    boolean taskSelected = false;
+    TaskPair selectedTask;
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -45,6 +49,7 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mNavigationDrawerFragment.setCalendarActivity(this);
         mTitle = getTitle();
 
         // Set up the drawer.
@@ -82,8 +87,20 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
                 Toast.makeText(getApplicationContext(), day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
-                //Intent intent = new Intent(this, DayViewActivity.class);
-                startActivity(new Intent("com.thunderpanther.panther.DayViewActivity"));
+                Intent intent = new Intent("com.thunderpanther.panther.DayViewActivity");
+                if(taskSelected == true) {
+                    intent.putExtra("id", selectedTask.id);
+                    intent.putExtra("name", selectedTask.name);
+                    intent.putExtra("depth", selectedTask.depth);
+                    Log.d("cal", "taskSelected: " + selectedTask.name);
+                    selectedTask = null;
+                    taskSelected = false;
+
+                }
+
+
+
+                startActivity(intent);
             }
         });
     }
@@ -217,6 +234,14 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
     private void storeWSinDB(WorkSession w) {
         // TODO:
         TDBHelper.addWorkSessionToDB(w.getID(), w.getTarget().getID(), w.getStartTime(), w.getEndTime());
+    }
+
+    @Override
+    public void onTaskLongClick(TaskPair taskPair) {
+        mNavigationDrawerFragment.minimize();
+        taskSelected = true;
+        selectedTask = taskPair;
+        Log.d("lol", "selectedTask.name: " + selectedTask.name);
     }
 
     /**

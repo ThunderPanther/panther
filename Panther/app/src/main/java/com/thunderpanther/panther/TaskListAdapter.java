@@ -61,6 +61,13 @@ public class TaskListAdapter extends ArrayAdapter<TaskPair> {
 
         holder.name = (TextView)row.findViewById(R.id.task_name);
 
+        TextView indent = (TextView)row.findViewById(R.id.indentation);
+        StringBuilder iString = new StringBuilder();
+        for (int i = 0; i < holder.task.depth; i++) {
+            iString.append("   ");
+        }
+        indent.setText(iString.toString());
+
         View.OnClickListener clickTaskListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {

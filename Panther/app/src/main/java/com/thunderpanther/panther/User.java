@@ -11,7 +11,7 @@ public class User {
     private static User currentUser = null;
     private static TasksSQLiteHelper db;
     private TaskForest taskList = new TaskForest();
-
+    private Calendar calendar = new Calendar();
 
     protected User() {}
 
@@ -37,7 +37,8 @@ public class User {
     protected void loadData() {
         // Load the data from local storage
 
-        User.getCurrentUser().loadTasks(db);
+        loadTasks(db);
+        loadWorkSessions(db);
     }
 
     public Task getTask(int id) {
@@ -78,5 +79,13 @@ public class User {
         // application context in this type of class
         taskList = TDBHelper.getUserTasks();
 
+    }
+
+    public void loadWorkSessions(TasksSQLiteHelper TDBHelper) {
+        calendar = TDBHelper.getUserCalendar();
+    }
+
+    public void scheduleWorkSession(WorkSession w) {
+        calendar.addWorkSession(w);
     }
 }

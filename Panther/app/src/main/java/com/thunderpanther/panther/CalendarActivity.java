@@ -23,8 +23,10 @@ import android.widget.CalendarView.OnDateChangeListener;
 import android.widget.Toast;
 import android.content.Intent;
 
+import java.util.Date;
+
 public class CalendarActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks,
-    CreateTaskDialogFragment.CreateTaskListener {
+    CreateTaskDialogFragment.CreateTaskListener, ScheduleTaskDialogFragment.WorkSessionCreateListener {
 
     CalendarView calendar;
     TasksSQLiteHelper TDBHelper;
@@ -240,6 +242,19 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
         TDBHelper.deleteTask(id);
         // TODO: is this necessary?
         mNavigationDrawerFragment.refreshTaskList();
+    }
+
+    @Override
+    public void onCreateWorkSession(Date startTime, Date endTime, Task target) {
+        // TODO: DB id!
+        WorkSession w = new WorkSession(TDBHelper.getNextWorkSessionId(), startTime, endTime, target);
+        User.getCurrentUser().scheduleWorkSession(w);
+        storeWSinDB(w);
+    }
+
+    private void storeWSinDB(WorkSession w) {
+        // TODO:
+        TDBHelper.addWorkSessionToDB(w.getID(), w.getTarget().getID(), w.getStartTime(), w.getEndTime());
     }
 
     /**

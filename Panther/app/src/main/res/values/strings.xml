@@ -30,4 +30,7 @@
     <string name="confirmDelete">Confirm Task Deletion</string>
     <string name="confirmDeleteMessage">Are you sure you want to delete the task</string>
     <string name="allSubtasksDeleted">All of its subtasks will be deleted.</string>
+
+    <string name="scheduleTaskTitle">Schedule Task</string>
+    <string name="duration">Task Duration</string>
 </resources>

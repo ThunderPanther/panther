@@ -88,6 +88,10 @@ public class Task {
 
     public int getId(){ return id;}
 
+    public int getWeight(){ return weight;}
+
+    public int getEstimate(){return timeEstimate;}
+
     public void addToList(List<TaskPair> taskList, int depth) {
         taskList.add(new TaskPair(id, name, depth));
         for (Task t :children) {

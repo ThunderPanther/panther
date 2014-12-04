@@ -14,6 +14,15 @@ public class User {
 
     protected User() {}
 
+    public static final User getCurrentUser() {
+        // TODO: Check this out, is singleton the right way to go?
+        if (currentUser == null) {
+            currentUser = new User();
+            //currentUser.loadData(TDBHelper);
+        }
+
+        return currentUser;
+    }
     public static final User getCurrentUser(TasksSQLiteHelper TDBHelper) {
         // TODO: Check this out, is singleton the right way to go?
         if (currentUser == null) {

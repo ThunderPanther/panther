@@ -15,6 +15,8 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
     public static final String TABLE_TASKS = "tasks";
     public static final String COLUMN_TASKID = "_taskId";
     public static final String COLUMN_TASKNAME = "name";
+    public static final String COLUMN_WEIGHT = "weight";
+    public static final String COLUMN_ESTIMATE = "estimate";
 
     private static final String DATABASE_NAME = "tasks.db";
     private static final int DATABASE_VERSION = 1;
@@ -23,7 +25,7 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE = "CREATE TABLE "
             + TABLE_TASKS + "(" + COLUMN_TASKID
             + " INTEGER PRIMARY KEY, " + COLUMN_TASKNAME
-            + " TEXT NOT NULL);";
+            + " TEXT NOT NULL, " + COLUMN_WEIGHT + " INTEGER, " + COLUMN_ESTIMATE +  " INTEGER);";
 
     public TasksSQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -42,11 +44,13 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addTaskToDB( int id, String name){
+    public void addTaskToDB( int id, String name, int weight, int estimate){
         Log.i("TasksSQLiteHelperDB","Adding Task To DB");
         ContentValues values = new ContentValues();
         values.put(COLUMN_TASKID, id);
         values.put(COLUMN_TASKNAME, name);
+        values.put(COLUMN_WEIGHT, weight);
+        values.put(COLUMN_ESTIMATE, estimate);
         Log.i("Add Task To DB","Getting Writable Database");
         SQLiteDatabase db = this.getWritableDatabase();
         Log.i("Add Task To DB","Got Writable Database ");
@@ -57,9 +61,12 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
 
     }
 
-//    public TaskForest getUserTasks(){
-//
-//    }
+    public TaskForest getUserTasks(){
+        TaskForest taskList = new TaskForest();
+        String query = "Select * FROM " + TABLE_TASKS;
+
+        return taskList;
+    }
 
     public String findTask(int id){
         String query = "Select * FROM " + TABLE_TASKS + " WHERE " + COLUMN_TASKID + " = " + id;

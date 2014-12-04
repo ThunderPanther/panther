@@ -158,13 +158,13 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
         Log.d("info", name + " " + weight);
 
         Task t = new Task(name, weight, 0);
-        User.getCurrentUser().addTask(t, null);
+        User.getCurrentUser(TDBHelper).addTask(t, null);
         storeTaskInDB(t);
     }
 
     public void storeTaskInDB(Task t){
 
-        TDBHelper.addTaskToDB( t.getId(), t.getName());
+        TDBHelper.addTaskToDB( t.getId(), t.getName(), t.getWeight(), t.getEstimate());
     }
 
 

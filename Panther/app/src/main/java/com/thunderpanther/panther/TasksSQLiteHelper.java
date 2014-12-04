@@ -148,6 +148,14 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
         return nextId;
     }
 
+    public void toggleTaskComplete(int taskID, boolean isComplete) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues args = new ContentValues();
+        args.put(COLUMN_COMPLETED, isComplete ? 1 : 0);
+        db.update(TABLE_TASKS, args, COLUMN_TASKID + " = " + taskID, null);
+        db.close();
+    }
+
     public TaskForest getUserTasks(){
         Log.i("TasksSQLiteHelperDB","Getting Tasks From DB");
         TaskForest taskList = new TaskForest();

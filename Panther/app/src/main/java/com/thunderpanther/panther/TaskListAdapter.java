@@ -45,10 +45,12 @@ public class TaskListAdapter extends ArrayAdapter<TaskPair> {
 
         holder = new TaskHolder();
         holder.task = items.get(position);
-        holder.removePaymentButton = (ImageButton)row.findViewById(R.id.atomPay_removePay);
-        holder.removePaymentButton.setTag(holder.task);
+        holder.collapseTaskButton = (ImageButton)row.findViewById(R.id.collapse_tasks);
+        holder.collapseTaskButton.setTag(holder.task);
+        holder.createSubtaskButton = (ImageButton)row.findViewById(R.id.create_subtask);
+        holder.createSubtaskButton.setTag(holder.task);
 
-        holder.name = (TextView)row.findViewById(R.id.atomPay_name);
+        holder.name = (TextView)row.findViewById(R.id.task_name);
 
         View.OnClickListener clickTaskListener = new View.OnClickListener() {
             @Override
@@ -85,7 +87,8 @@ public class TaskListAdapter extends ArrayAdapter<TaskPair> {
         TaskPair task;
         TextView name;
         //TextView value;
-        ImageButton removePaymentButton;
+        ImageButton collapseTaskButton;//removePaymentButton;
+        ImageButton createSubtaskButton;
     }
 
     private void setNameTextChangeListener(final TaskHolder holder) {

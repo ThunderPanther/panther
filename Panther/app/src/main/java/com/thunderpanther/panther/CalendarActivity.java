@@ -111,15 +111,24 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
         actionBar.setTitle(mTitle);
     }
 
-    public void removeAtomPayOnClickHandler(View v) {
+    public void collapseTaskToggle(View v) {
         //Task itemToRemove = (AtomPayment)v.getTag();
         // adapter.remove(itemToRemove);
+//<<<<<<< Updated upstream
         TaskPair p = (TaskPair)v.getTag();
         int position = mNavigationDrawerFragment.getTaskListPosition(p.id);
         mNavigationDrawerFragment.toggleCollapsed(position);
 
         Toast.makeText(this, "Collapse/Expand." + position, Toast.LENGTH_SHORT).show();
 
+//=======
+        Toast.makeText(this, "Collapse/Expand.", Toast.LENGTH_SHORT).show();
+//>>>>>>> Stashed changes
+
+    }
+
+    //TODO: this fucking function
+    public void createSubtask() {
 
     }
 

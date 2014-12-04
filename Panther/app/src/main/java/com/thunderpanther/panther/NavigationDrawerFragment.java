@@ -180,7 +180,7 @@ public class NavigationDrawerFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectItem(position);
-                Toast.makeText(getActivity(), "Clicked a Task.", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Clicked a Task.", Toast.LENGTH_SHORT).show();  DOESNT DO ANYTHING
             }
         });
 

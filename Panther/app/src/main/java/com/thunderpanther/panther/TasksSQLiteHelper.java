@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +43,28 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE2 = "CREATE TABLE "
             + TABLE_CURRENTID + " (" + COLUMN_ID +" INTEGER PRIMARY KEY, "+ COLUMN_NEXTID + " INTEGER);";
 
+    public static final String TABLE_WS = "workSessions";
+    public static final String COL_WS_ID = "WSID";
+    public static final String COL_TASK_ID = "TID";
+    public static final String COL_START = "startTime";
+    public static final String COL_END = "endTime";
+
+    private static final String WS_DATABASE_CREATE = "CREATE TABLE "
+            + TABLE_WS + "("
+            + COL_WS_ID + " INTEGER PRIMARY KEY, "
+            + COL_TASK_ID + " INTEGER NOT NULL, "
+            + COL_START + " INTEGER, "
+            + COL_END + " INTEGER);";
+
+    public static final String TABLE_WSID = "workSessionID";
+    public static final String COL_WSID_FAKEID = "workSessionIndex";
+    public static final String COL_WSID_NEXTID = "workSessionNextID";
+
+    private static final String WSID_DATABASE_CREATE = "CREATE TABLE "
+            + TABLE_WSID + "("
+            + COL_WSID_FAKEID + " INTEGER PRIMARY KEY, "
+            + COL_WSID_NEXTID + " INTEGER NOT NULL);";
+
     public TasksSQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -50,6 +73,8 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
         Log.i("TasksSQLiteHelperDB","Creating Database");
         db.execSQL(DATABASE_CREATE);
         db.execSQL(DATABASE_CREATE2);
+        db.execSQL(WS_DATABASE_CREATE);
+        db.execSQL(WSID_DATABASE_CREATE);
 
         Log.i("TasksSQLiteHelperDB","Database Created");
     }
@@ -58,6 +83,8 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int i, int i2) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TASKS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CURRENTID);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WSID);
         onCreate(db);
     }
 
@@ -173,6 +200,76 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         int numRows = (int) DatabaseUtils.queryNumEntries(db, TABLE_TASKS);
         return numRows;
+    }
+
+    public void addWorkSessionToDB(int wsid, int taskid, Date start, Date end) {
+        Log.i("TasksSQLiteHelperDB","Adding Task To DB");
+        ContentValues values = new ContentValues();
+        values.put(COL_WS_ID, wsid);
+        values.put(COL_TASK_ID, taskid);
+        values.put(COL_START, start.toString());
+        values.put(COL_END, end.toString());
+
+        Log.i("Add Task To DB","Getting Writable Database");
+        SQLiteDatabase db = this.getWritableDatabase();
+        Log.i("Add Task To DB","Got Writable Database ");
+        db.insert(TABLE_WS, null, values);
+
+        ContentValues values2 = new ContentValues();
+        values2.put(COL_WSID_FAKEID, 1);
+        values2.put(COL_WSID_NEXTID, wsid+1);
+        db.replace(TABLE_WSID, null, values2);
+
+        Log.i("TasksSQLiteHelperDB","Task Added To DB");
+        db.close();
+    }
+
+    public Calendar getUserCalendar() {
+        Calendar cal = new Calendar();
+        String query = "Select * FROM " + TABLE_WS;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            WorkSession w = cursorToWS(cursor);
+            cal.addWorkSession(w);
+            cursor.moveToNext();
+        }
+        // make sure to close the cursor
+        cursor.close();
+        db.close();
+
+        return cal;
+    }
+
+    public WorkSession cursorToWS(Cursor cursor) {
+        int wsid = Integer.parseInt(cursor.getString(0));
+        int tid = Integer.parseInt(cursor.getString(1));
+        Task target = User.getCurrentUser().getTask(tid);
+
+        Date start = new Date(Long.parseLong(cursor.getString(2)));
+        Date end = new Date(Long.parseLong(cursor.getString(3)));
+
+        WorkSession w = new WorkSession(wsid, start, end, target);
+        return w;
+    }
+
+    public int getNextWorkSessionId(){
+        String query = "Select * FROM " + TABLE_WSID;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        int nextId = 0;
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            nextId = Integer.parseInt(cursor.getString(1));
+        }
+
+        cursor.close();
+        db.close();
+        return nextId;
     }
 //    public String findTask(int id){
 //        String query = "Select * FROM " + TABLE_TASKS + " WHERE " + COLUMN_TASKID + " = " + id;

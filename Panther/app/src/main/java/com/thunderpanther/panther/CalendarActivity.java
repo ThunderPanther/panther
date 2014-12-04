@@ -81,6 +81,7 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
 
         //sets the color for the vertical bar shown at the beginning and at the end of the selected date.
         calendar.setSelectedDateVerticalBar(R.color.darkgreen);
+
         //sets the listener to be notified upon selected date change.
         calendar.setOnDateChangeListener(new OnDateChangeListener() {
             //show the selected date as a toast
@@ -143,7 +144,7 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
         mNavigationDrawerFragment.toggleCollapsed(position);
     }
 
-    //TODO: this fucking function
+
     public void createSubtask(View v) {
         TaskPair p = (TaskPair)v.getTag();
         Log.i("This", p.id + ": " + p.name);

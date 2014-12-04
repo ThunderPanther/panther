@@ -27,15 +27,17 @@ public class TaskListAdapter extends ArrayAdapter<TaskPair> {
     // TODO: test!
     private FragmentManager fragmentManager;
     private List<Boolean> collapsed;
+    OnLongClickerListener longClickerListener;
 
     public TaskListAdapter(Context context, int layoutResourceId, List<TaskPair> items,
-                           FragmentManager fragmentManager, List<Boolean> collapsed) {
+                           FragmentManager fragmentManager, List<Boolean> collapsed, OnLongClickerListener n) {
         super(context, layoutResourceId, items);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
         this.items = items;
         this.fragmentManager = fragmentManager;
         this.collapsed = collapsed;
+        longClickerListener = n;
     }
 
     @Override
@@ -83,6 +85,14 @@ public class TaskListAdapter extends ArrayAdapter<TaskPair> {
         };
 
         holder.name.setOnClickListener(clickTaskListener);
+
+        holder.name.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                longClickerListener.onTaskLongClick(items.get(position));
+                return true;
+            }
+        });
         //setNameTextChangeListener(holder);
         //holder.value = (TextView)row.findViewById(R.id.atomPay_value);
         //setValueTextListeners(holder);
@@ -122,5 +132,9 @@ public class TaskListAdapter extends ArrayAdapter<TaskPair> {
             @Override
             public void afterTextChanged(Editable s) { }
         });
+    }
+
+    public interface OnLongClickerListener {
+        public void onTaskLongClick(TaskPair taskPair);
     }
 }

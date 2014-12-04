@@ -4,12 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -163,38 +158,6 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
         dialog.show(getFragmentManager(), "create_task_dialog");
     }
 
-    private int notificationID = 100;
-
-    private void showNotification(String title, String text) {
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_action_clock)
-                        .setContentTitle(title)
-                        .setContentText(text);
-        // Creates an explicit intent for an Activity in your app
-        Intent resultIntent = new Intent(this, CalendarActivity.class);
-
-        // The stack builder object will contain an artificial back stack for the
-        // started Activity.
-        // This ensures that navigating backward from the Activity leads out of
-        // your application to the Home screen.
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        // Adds the back stack for the Intent (but not the Intent itself)
-        stackBuilder.addParentStack(CalendarActivity.class);
-        // Adds the Intent that starts the Activity to the top of the stack
-        stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(
-                        0,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
-        mBuilder.setContentIntent(resultPendingIntent);
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        // mId allows you to update the notification later on.
-        mNotificationManager.notify(notificationID, mBuilder.build());
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -232,7 +195,6 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
             pid = t.getParent().getID();
         }
         TDBHelper.addTaskToDB( t.getID(), t.getName(), t.getWeight(), t.getTimeEstimate(), pid);
-        showNotification("New Task!","Estimated "+t.getTimeEstimate()+"Hours Remaining on " + t.getName());
     }
 
     @Override

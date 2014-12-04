@@ -114,22 +114,19 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
     public void collapseTaskToggle(View v) {
         //Task itemToRemove = (AtomPayment)v.getTag();
         // adapter.remove(itemToRemove);
-//<<<<<<< Updated upstream
         TaskPair p = (TaskPair)v.getTag();
         int position = mNavigationDrawerFragment.getTaskListPosition(p.id);
         mNavigationDrawerFragment.toggleCollapsed(position);
-
-        Toast.makeText(this, "Collapse/Expand." + position, Toast.LENGTH_SHORT).show();
-
-//=======
-        Toast.makeText(this, "Collapse/Expand.", Toast.LENGTH_SHORT).show();
-//>>>>>>> Stashed changes
-
     }
 
     //TODO: this fucking function
-    public void createSubtask() {
+    public void createSubtask(View v) {
+        TaskPair p = (TaskPair)v.getTag();
+        Task parent = User.getCurrentUser().getTask(p.id);
 
+        CreateTaskDialogFragment dialog = new CreateTaskDialogFragment();
+        dialog.setParentTask(parent);
+        dialog.show(getFragmentManager(), "create_task_dialog");
     }
 
     @Override
@@ -170,12 +167,14 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
     }
 
     @Override
-    public void onCreateTaskConfirm(String name, int weight, double timeEst) {
+    public void onCreateTaskConfirm(String name, Task parent, int weight, double timeEst) {
         Log.d("info", "Task created! (really)");
         Log.d("info", name + " " + weight);
 
         Task t = new Task(name, weight, timeEst);
-        User.getCurrentUser().addTask(t, null);
+        User.getCurrentUser().addTask(t, parent);
+
+        mNavigationDrawerFragment.refreshTaskList();
     }
 
     @Override

@@ -18,7 +18,7 @@ import android.widget.TextView;
 public class CreateTaskDialogFragment extends DialogFragment {
 
     public interface CreateTaskListener {
-        public void onCreateTaskConfirm(String name, int weight, double timeEst);
+        public void onCreateTaskConfirm(String name, Task parent, int weight, double timeEst);
         public void onDeleteTask(int id);
     }
 
@@ -72,11 +72,13 @@ public class CreateTaskDialogFragment extends DialogFragment {
         }
 
         if (mParentTask != null) {
-            mParentTaskDisplay.setText(getString(R.string.dialogParent) + mParentTask.getName());
+            mParentTaskDisplay.setText(getString(R.string.dialogParent) + " " + mParentTask.getName());
+        } else {
+            mParentTaskDisplay.setVisibility(View.GONE);
         }
 
         builder.setView(dialogView)
-                .setTitle(R.string.create_task_title)
+                .setTitle(editingTask ? R.string.edit_task_title : R.string.create_task_title)
                 .setPositiveButton(editingTask ? R.string.dialogConfirm : R.string.dialogCreateTask,
                         new DialogInterface.OnClickListener() {
                     @Override
@@ -109,7 +111,7 @@ public class CreateTaskDialogFragment extends DialogFragment {
                             } catch (NumberFormatException e) {
                                 timeEst = 0;
                             }
-                            listener.onCreateTaskConfirm(mTaskName.getText().toString(), weight, timeEst);
+                            listener.onCreateTaskConfirm(mTaskName.getText().toString(), mParentTask, weight, timeEst);
 
                         }
                     }

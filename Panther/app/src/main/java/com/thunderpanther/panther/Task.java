@@ -95,6 +95,10 @@ public class Task {
         child.parent = this;
     }
 
+    public Task getParent() {
+        return parent;
+    }
+
     public int getID() {
         return id;
     }

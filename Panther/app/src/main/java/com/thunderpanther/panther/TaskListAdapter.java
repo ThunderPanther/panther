@@ -61,6 +61,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskPair> {
 
                 CreateTaskDialogFragment dialog = new CreateTaskDialogFragment();
                 dialog.setExistingTask(targetTask);
+                dialog.setParentTask(targetTask.getParent());
                 dialog.show(fragmentManager, "create_task_dialog");
             }
         };

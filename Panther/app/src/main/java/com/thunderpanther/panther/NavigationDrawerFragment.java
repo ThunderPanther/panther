@@ -143,6 +143,7 @@ public class NavigationDrawerFragment extends Fragment {
 
         // List<String> tasks = new ArrayList<String>();
         List<TaskPair> tasks = new ArrayList<TaskPair>();
+        List<Boolean> collapsed = new ArrayList<Boolean>();
 
         for (int i = 0; i < taskList.size(); i++) {
             StringBuilder indentBuilder = new StringBuilder();
@@ -153,6 +154,7 @@ public class NavigationDrawerFragment extends Fragment {
             }
             // tasks.add(indentBuilder.append(taskList.get(i).name).toString());
             tasks.add(taskList.get(i));
+            collapsed.add(isCollapsed[i]);
 
             if (isCollapsed[i]) {
                 // Skip past tasks with greater depth
@@ -167,7 +169,8 @@ public class NavigationDrawerFragment extends Fragment {
                 R.layout.task_list_item,
                 // taskList,
                 tasks,
-                getFragmentManager()));
+                getFragmentManager(),
+                collapsed));
 
     }
 

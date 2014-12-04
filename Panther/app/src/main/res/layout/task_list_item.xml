@@ -10,7 +10,7 @@
         android:layout_height="fill_parent"
         android:contentDescription=""
         android:onClick="collapseTaskToggle"
-        android:src="@android:drawable/ic_menu_delete" />
+        android:src="@drawable/ic_action_folder_open" />
 
     <TextView
         android:id="@+id/task_name"
@@ -26,5 +26,5 @@
         android:layout_height="fill_parent"
         android:contentDescription=""
         android:onClick="createSubtask"
-        android:src="@android:drawable/ic_menu_add" />
+        android:src="@drawable/ic_action_add" />
 </LinearLayout>

@@ -26,13 +26,16 @@ public class TaskListAdapter extends ArrayAdapter<TaskPair> {
     private Context context;
     // TODO: test!
     private FragmentManager fragmentManager;
+    private List<Boolean> collapsed;
 
-    public TaskListAdapter(Context context, int layoutResourceId, List<TaskPair> items, FragmentManager fragmentManager) {
+    public TaskListAdapter(Context context, int layoutResourceId, List<TaskPair> items,
+                           FragmentManager fragmentManager, List<Boolean> collapsed) {
         super(context, layoutResourceId, items);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
         this.items = items;
         this.fragmentManager = fragmentManager;
+        this.collapsed = collapsed;
     }
 
     @Override
@@ -47,6 +50,12 @@ public class TaskListAdapter extends ArrayAdapter<TaskPair> {
         holder.task = items.get(position);
         holder.collapseTaskButton = (ImageButton)row.findViewById(R.id.collapse_tasks);
         holder.collapseTaskButton.setTag(holder.task);
+        int iconID = collapsed.get(position)
+                ? R.drawable.ic_action_folder_closed
+                : R.drawable.ic_action_folder_open;
+
+        holder.collapseTaskButton.setImageDrawable(context.getResources().getDrawable(iconID));
+
         holder.createSubtaskButton = (ImageButton)row.findViewById(R.id.create_subtask);
         holder.createSubtaskButton.setTag(holder.task);
 

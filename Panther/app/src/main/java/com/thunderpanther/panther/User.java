@@ -93,4 +93,8 @@ public class User {
     public void scheduleWorkSession(WorkSession w) {
         calendar.addWorkSession(w);
     }
+
+    public void invalidateTaskList() {
+        taskList.invalidate();
+    }
 }

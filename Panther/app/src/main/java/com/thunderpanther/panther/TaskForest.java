@@ -81,4 +81,9 @@ public class TaskForest {
         }
         return taskList;
     }
+
+    public void invalidate() {
+        tasksModified = true;
+        taskStringModified = true;
+    }
 }

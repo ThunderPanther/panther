@@ -22,6 +22,7 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
     CreateTaskDialogFragment.CreateTaskListener {
 
     CalendarView calendar;
+    TasksSQLiteHelper TDBHelper;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -36,6 +37,8 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TDBHelper = new TasksSQLiteHelper(this);
+        User.setDB(TDBHelper);
         setContentView(R.layout.activity_calendar);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -124,6 +127,7 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
     //TODO: this fucking function
     public void createSubtask(View v) {
         TaskPair p = (TaskPair)v.getTag();
+        Log.i("This", p.id + ": " + p.name);
         Task parent = User.getCurrentUser().getTask(p.id);
 
         CreateTaskDialogFragment dialog = new CreateTaskDialogFragment();
@@ -173,15 +177,29 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
         Log.d("info", "Task created! (really)");
         Log.d("info", name + " " + weight);
 
-        Task t = new Task(name, weight, timeEst);
+        Task t = new Task(name, weight, timeEst, TDBHelper.getNextId());
+        Log.d("info", "It wont get here");
         User.getCurrentUser().addTask(t, parent);
-
+        storeTaskInDB(t);
         mNavigationDrawerFragment.refreshTaskList();
+    }
+
+    public void storeTaskInDB(Task t){
+        Log.d("info", "Storing Task in DB");
+        int pid;
+        if(t.getParent() == null){
+            pid = -1;
+        }else{
+            pid = t.getParent().getID();
+        }
+        TDBHelper.addTaskToDB( t.getID(), t.getName(), t.getWeight(), t.getTimeEstimate(), pid);
     }
 
     @Override
     public void onDeleteTask(int id) {
         User.getCurrentUser().removeTask(id);
+        // remove from db
+        TDBHelper.deleteTask(id);
         // TODO: is this necessary?
         mNavigationDrawerFragment.refreshTaskList();
     }

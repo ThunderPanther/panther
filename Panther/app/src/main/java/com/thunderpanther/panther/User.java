@@ -9,9 +9,16 @@ import java.util.List;
 public class User {
 
     private static User currentUser = null;
+    private static TasksSQLiteHelper db;
     private TaskForest taskList = new TaskForest();
 
+
     protected User() {}
+
+    public static void setDB(TasksSQLiteHelper db) {
+        User.db = db;
+    }
+
 
     public static final User getCurrentUser() {
         // TODO: Check this out, is singleton the right way to go?
@@ -30,18 +37,7 @@ public class User {
     protected void loadData() {
         // Load the data from local storage
 
-        /*
-        Task rootTask1 = new Task("Test root task", 0, 0);
-        currentUser.addTask(rootTask1);
-
-        Task taskTree[] = new Task[17];
-        taskTree[1] = new Task("Task tree task 1", 0, 0);
-        currentUser.addTask(taskTree[1]);
-        for (int i = 2; i < 17; i++) {
-            taskTree[i] = new Task("Task tree task" + i, 0, 0);
-            currentUser.addTask(taskTree[i], taskTree[i / 2]);
-        }
-        */
+        User.getCurrentUser().loadTasks(db);
     }
 
     public Task getTask(int id) {
@@ -74,5 +70,13 @@ public class User {
     public void storeData() {
         // Called when the application is closed/loses focus?
         // For an offline user, this would just store the data locally
+    }
+
+    public void loadTasks(TasksSQLiteHelper TDBHelper) {
+        // Load the data from local storage
+        // for each task in the database call add task is what I would do but I cant get an
+        // application context in this type of class
+        taskList = TDBHelper.getUserTasks();
+
     }
 }

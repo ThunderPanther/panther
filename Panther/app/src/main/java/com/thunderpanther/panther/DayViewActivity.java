@@ -69,25 +69,24 @@ public class DayViewActivity extends ListActivity {
 
             @Override
             public View getView(int position, View arg1, ViewGroup arg2) {
-                // TODO Auto-generated method stub
                 LayoutInflater inflater = getLayoutInflater();
                 View listItem = (View) inflater.inflate(R.layout.list_item, getListView(), false);
                 TextView hourTV = (TextView) listItem.findViewById(R.id.hourTV);
-                TextView amTV = (TextView) listItem.findViewById(R.id.amTV);
+                //TextView amTV = (TextView) listItem.findViewById(R.id.amTV);
                 hourTV.setTextColor(Color.BLUE);
-                amTV.setTextColor(Color.BLUE);
+                //amTV.setTextColor(Color.BLUE);
                 final LinearLayout eventsLL = (LinearLayout) listItem.findViewById(R.id.eventsLL);
-                hourTV.setText(String.valueOf((position + 9) % 24));
+                hourTV.setText(String.valueOf((position) % 24));
                 //I set am/pm for each entry ... you could specify which entries
-                if (((position >= 0) && (position <= 2)) || ((position >= 15) && (position <= 23)))
+                /*if (((position >= 0) && (position <= 2)) || ((position >= 15) && (position <= 23)))
                     amTV.setText("am");
                 else
                     amTV.setText("pm");
+                    */
                 eventsLL.setOnClickListener(new View.OnClickListener() {
 
                     @Override
                     public void onClick(View arg0) {
-                        // TODO Auto-generated method stub
                         AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
 
                         alert.setTitle("New Event");

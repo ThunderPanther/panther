@@ -44,6 +44,8 @@ public class CreateTaskDialogFragment extends DialogFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
+        setRetainInstance(true);
+
         try {
             listener = (CreateTaskListener)activity;
         } catch (ClassCastException e) {

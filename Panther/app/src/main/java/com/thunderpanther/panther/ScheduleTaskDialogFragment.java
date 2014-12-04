@@ -38,6 +38,8 @@ public class ScheduleTaskDialogFragment extends DialogFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
+        setRetainInstance(true);
+
         try {
             listener = (WorkSessionCreateListener)activity;
         } catch (ClassCastException e) {

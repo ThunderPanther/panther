@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.CalendarView.OnDateChangeListener;
 import android.widget.Toast;
-
+import android.content.Intent;
 
 public class CalendarActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks,
     CreateTaskDialogFragment.CreateTaskListener {
@@ -77,6 +77,8 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
                 Toast.makeText(getApplicationContext(), day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
+                //Intent intent = new Intent(this, DayViewActivity.class);
+                startActivity(new Intent("com.thunderpanther.panther.DayViewActivity"));
             }
         });
     }

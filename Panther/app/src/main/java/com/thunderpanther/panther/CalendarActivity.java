@@ -19,7 +19,7 @@ import android.widget.CalendarView.OnDateChangeListener;
 import android.widget.Toast;
 import android.content.Intent;
 
-import java.util.Date;
+import java.util.*;
 
 public class CalendarActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks,
     CreateTaskDialogFragment.CreateTaskListener, ScheduleTaskDialogFragment.WorkSessionCreateListener,
@@ -81,6 +81,39 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
 
         //sets the color for the vertical bar shown at the beginning and at the end of the selected date.
         calendar.setSelectedDateVerticalBar(R.color.darkgreen);
+        calendar.setClickable(true);
+        /*
+        calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Info", "CLICKCKCKC");
+                Date date = new Date(calendar.getDate());
+                java.util.Calendar cal = java.util.Calendar.getInstance();
+                cal.setTime(date);
+                int day = cal.get(java.util.Calendar.DAY_OF_MONTH);
+                int month = cal.get(java.util.Calendar.MONTH);
+                int year = cal.get(java.util.Calendar.YEAR);
+                Toast.makeText(getApplicationContext(), day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent("com.thunderpanther.panther.DayViewActivity");
+                if(taskSelected == true) {
+                    intent.putExtra("id", selectedTask.id);
+                    intent.putExtra("name", selectedTask.name);
+                    intent.putExtra("depth", selectedTask.depth);
+                    Log.d("cal", "taskSelected: " + selectedTask.name);
+                    selectedTask = null;
+                    taskSelected = false;
+
+                } else {
+                    intent.putExtra("id", -1);
+                }
+                intent.putExtra("year", year);
+                intent.putExtra("month", month);
+                intent.putExtra("day", day);
+
+                startActivity(intent);
+            }
+        });
+        */
 
         //sets the listener to be notified upon selected date change.
         calendar.setOnDateChangeListener(new OnDateChangeListener() {
@@ -215,7 +248,7 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
         }else{
             pid = t.getParent().getID();
         }
-        Application.getDB().addTaskToDB( t.getID(), t.getName(), t.getWeight(), t.getTimeEstimate(), pid, t.isCompleted());
+        Application.getDB().addTaskToDB(t.getID(), t.getName(), t.getWeight(), t.getTimeEstimate(), pid, t.isCompleted());
     }
 
     @Override
@@ -246,45 +279,5 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
         taskSelected = true;
         selectedTask = taskPair;
         Log.d("lol", "selectedTask.name: " + selectedTask.name);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_calendar, container, false);
-            return rootView;
-        }
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((CalendarActivity) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
     }
 }

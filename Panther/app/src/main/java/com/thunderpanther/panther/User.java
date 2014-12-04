@@ -60,11 +60,16 @@ public class User {
         taskList.addTask(t, null);
     }
 
+    public Calendar getCalendar() {
+        return calendar;
+    }
+
     public void addTask(Task t, Task p) {
         taskList.addTask(t, p);
     }
 
     public void removeTask(int id) {
+        calendar.removeReferringWorkSessions(id);
         taskList.removeTask(id);
     }
 

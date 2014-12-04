@@ -128,6 +128,16 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
             cursor.close();
             result = true;
         }
+
+
+        String wsQuery = "SELECT * FROM " + TABLE_WS + " WHERE " + COL_TASK_ID + " = " + id + ";";
+
+        cursor = db.rawQuery(wsQuery, null);
+        if (cursor.moveToFirst()) {
+            db.delete(TABLE_WS, COL_TASK_ID + " = "+ id, null);
+            cursor.close();
+        }
+
         db.close();
         return result;
     }

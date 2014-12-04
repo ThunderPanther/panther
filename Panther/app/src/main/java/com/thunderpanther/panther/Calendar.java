@@ -40,6 +40,17 @@ public class Calendar {
         }
     }
 
+    public void removeReferringWorkSessions(int taskID) {
+        ListIterator<WorkSession> iterator = workSessions.listIterator();
+        while (iterator.hasNext()) {
+            WorkSession next = iterator.next();
+
+            if (next.getTarget().getID() == taskID) {
+                iterator.remove();
+            }
+        }
+    }
+
     public List<WorkSession> getWorkSessions() {
         return workSessions;
     }

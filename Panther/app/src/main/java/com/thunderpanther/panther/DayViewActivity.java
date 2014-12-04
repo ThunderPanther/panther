@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,15 +20,39 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.*;
+import java.util.Calendar;
 
 
 public class DayViewActivity extends ListActivity implements ScheduleTaskDialogFragment.WorkSessionCreateListener {
     private static int HOURS_PER_DAY = 24;
-
+    private static int id = -1;
     Context mContext = this;
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        final int id = getIntent().getExtras().getInt("id");
+        Log.d("Info", "onCreate");
+
+
+        id = getIntent().getExtras().getInt("id");
+        final int year = getIntent().getExtras().getInt("year");
+        final int month = getIntent().getExtras().getInt("month");
+        final int day = getIntent().getExtras().getInt("day");
+
+        Log.d("info", year + " " + month + " " + day);
+
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.set(year, month + java.util.Calendar.JANUARY, day, 0, 0, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        Date startDate = cal.getTime();
+        cal.set(year, month + java.util.Calendar.JANUARY, day, 23, 59, 59);
+        cal.set(Calendar.MILLISECOND, 0);
+        Date endDate = cal.getTime();
+
+        final List<WorkSession> sessions = User.getCurrentUser().getCalendar().getWorkSessionsInRange(startDate, endDate);
+
+        Log.d("Session length", sessions.size() + " ");
+        for (WorkSession session : sessions) {
+            Log.d("Session Info", session.getStartTime().toString() + " - " + session.getEndTime().toString());
+        }
 
         super.onCreate(savedInstanceState);
         //getListView().setBackgroundColor(Color.rgb(12, 12, 12));
@@ -74,7 +99,7 @@ public class DayViewActivity extends ListActivity implements ScheduleTaskDialogF
             public View getView(final int position, View arg1, ViewGroup arg2) {
                 // TODO Auto-generated method stub
                 LayoutInflater inflater = getLayoutInflater();
-                View listItem = (View) inflater.inflate(R.layout.list_item, getListView(), false);
+                final View listItem = (View) inflater.inflate(R.layout.list_item, getListView(), false);
                 TextView hourTV = (TextView) listItem.findViewById(R.id.hourTV);
                 TextView amTV = (TextView) listItem.findViewById(R.id.amTV);
                 hourTV.setTextColor(Color.BLUE);
@@ -82,10 +107,54 @@ public class DayViewActivity extends ListActivity implements ScheduleTaskDialogF
                 final LinearLayout eventsLL = (LinearLayout) listItem.findViewById(R.id.eventsLL);
                 hourTV.setText(String.valueOf((position )));
                 //I set am/pm for each entry ... you could specify which entries
+                /*
                 if (((position >= 0) && (position <= 2)) || ((position >= 15) && (position <= 23)))
                     amTV.setText("AM");
                 else
                     amTV.setText("PM");
+                */
+
+                amTV.setText(position < 12 ? "AM" : "PM");
+                int newPosition = (position >= 12) ? position - 12 : position;
+                hourTV.setText((newPosition != 0 ? newPosition : 12) + "");
+
+                java.util.Calendar cal = java.util.Calendar.getInstance();
+                cal.set(year, month + java.util.Calendar.JANUARY, day, position, 0, 0);
+                cal.set(Calendar.MILLISECOND, 0);
+                long rangeStart = cal.getTime().getTime();
+                cal.set(year, month + java.util.Calendar.JANUARY, day, position, 59, 59);
+                cal.set(Calendar.MILLISECOND, 0);
+                long rangeEnd = cal.getTime().getTime();
+
+                boolean hasWorkSession = false;
+                WorkSession targetWS = null;
+                for (WorkSession w : sessions) {
+                    long wTime = w.getStartTime().getTime();
+                    long wTime2 = w.getEndTime().getTime();
+                    // Log.d("WS Info", rangeStart + " - " + rangeEnd + " :: " + wTime);
+
+                    if (wTime >= rangeStart && wTime <= rangeEnd) {
+                        hasWorkSession = true;
+                        targetWS = w;
+                        break;
+                    } else if (wTime < rangeStart && wTime2 > rangeStart || wTime < rangeEnd && wTime2 > rangeEnd) {
+                        hasWorkSession = true;
+                    }
+                }
+                if (hasWorkSession) {
+                    Log.d("info", "hasWorkSession");
+                    // hourTV.setTextColor(Color.RED);
+                    boolean isStart = targetWS != null;
+
+                    eventsLL.setBackgroundColor(isStart ? Color.YELLOW : getResources().getColor(R.color.light_yellow));
+                    if (isStart) {
+                        TextView text = new TextView(mContext);
+                        text.setText(targetWS.getTarget().getName());
+                        text.setTextAppearance(mContext, android.R.style.TextAppearance_Medium);
+                        eventsLL.addView(text);
+                    }
+                }
+
                 eventsLL.setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -116,18 +185,17 @@ public class DayViewActivity extends ListActivity implements ScheduleTaskDialogF
                         alert.show();*/
                         if (id >= 0) {
                             java.util.Calendar cal = java.util.Calendar.getInstance();
-                            int year = getIntent().getExtras().getInt("year");
-                            int month = getIntent().getExtras().getInt("month");
-                            int day = getIntent().getExtras().getInt("day");
 
                             cal.set(year, month + java.util.Calendar.JANUARY, day, position, 0, 0);
+                            cal.set(Calendar.MILLISECOND, 0);
                             Date startDate = cal.getTime();
 
                             ScheduleTaskDialogFragment dialog = new ScheduleTaskDialogFragment();
                             Task target = User.getCurrentUser().getTask(id);
                             dialog.setTargetTask(target);
                             dialog.setStartTime(startDate);
-                            dialog.show(getFragmentManager(), "schedule_worksession_dialog");
+                            dialog.show(getFragmentManager(), "schedule_task_dialog");
+                            id = -1;
                         }
                     }
 
@@ -174,6 +242,8 @@ public class DayViewActivity extends ListActivity implements ScheduleTaskDialogF
         WorkSession w = new WorkSession(Application.getDB().getNextWorkSessionId(), startTime, endTime, target);
         User.getCurrentUser().scheduleWorkSession(w);
         storeWSinDB(w);
+
+        onCreate(null);
     }
 
     private void storeWSinDB(WorkSession w) {

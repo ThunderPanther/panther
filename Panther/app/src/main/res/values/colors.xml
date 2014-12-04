@@ -4,4 +4,8 @@
     <item name="grey" type="color">#555555</item>
     <item name="green" type="color">#4499CC00</item>
     <item name="darkgreen" type="color">#FF669900</item>
+
+    <item name="black" type="color">#FF000000</item>
+
+    <item name="light_yellow" type="color">#FFFFFF7F</item>
 </resources>

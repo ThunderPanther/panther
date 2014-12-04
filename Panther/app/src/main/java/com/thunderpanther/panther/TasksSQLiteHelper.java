@@ -294,24 +294,4 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
         db.close();
         return nextId;
     }
-//    public String findTask(int id){
-//        String query = "Select * FROM " + TABLE_TASKS + " WHERE " + COLUMN_TASKID + " = " + id;
-//
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        Cursor cursor = db.rawQuery(query, null);
-//
-//        String name;
-//
-//        cursor.moveToFirst();
-//        while (!cursor.isAfterLast()) {
-//            Task task = cursorToTask(cursor);
-//
-//            cursor.moveToNext();
-//        }
-//        // make sure to close the cursor
-//        cursor.close();
-//        db.close();
-//        return name;
-//    }
 }

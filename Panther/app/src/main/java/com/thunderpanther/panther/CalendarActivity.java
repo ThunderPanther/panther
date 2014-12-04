@@ -71,7 +71,7 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
         calendar.setFirstDayOfWeek(1);
 
         //The background color for the selected week.
-        calendar.setSelectedWeekBackgroundColor(getResources().getColor(R.color.green));
+        calendar.setSelectedWeekBackgroundColor(getResources().getColor(R.color.light_yellow));
 
         //sets the color for the dates of an unfocused month.
         calendar.setUnfocusedMonthDateColor(getResources().getColor(R.color.transparent));
@@ -80,7 +80,7 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
         calendar.setWeekSeparatorLineColor(getResources().getColor(R.color.transparent));
 
         //sets the color for the vertical bar shown at the beginning and at the end of the selected date.
-        calendar.setSelectedDateVerticalBar(R.color.darkgreen);
+        calendar.setSelectedDateVerticalBar(R.color.light_yellow);
         calendar.setClickable(true);
         /*
         calendar.setOnClickListener(new View.OnClickListener() {

@@ -99,9 +99,6 @@ public class TaskListAdapter extends ArrayAdapter<TaskPair> {
                 return true;
             }
         });
-        //setNameTextChangeListener(holder);
-        //holder.value = (TextView)row.findViewById(R.id.atomPay_value);
-        //setValueTextListeners(holder);
 
         row.setTag(holder);
 
@@ -113,14 +110,12 @@ public class TaskListAdapter extends ArrayAdapter<TaskPair> {
 
     private void setupItem(TaskHolder holder) {
         holder.name.setText(holder.task.name);
-        //holder.value.setText(String.valueOf(holder.atomPayment.getValue()));
     }
 
     public static class TaskHolder {
         TaskPair task;
         TextView name;
-        //TextView value;
-        ImageButton collapseTaskButton;//removePaymentButton;
+        ImageButton collapseTaskButton;
         ImageButton createSubtaskButton;
     }
 

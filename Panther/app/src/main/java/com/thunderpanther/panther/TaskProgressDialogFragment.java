@@ -18,8 +18,6 @@ import java.util.Date;
  */
 public class TaskProgressDialogFragment extends DialogFragment {
 
-        // private CreateTaskListener listener;
-
         private Task targetTask;
         private Date startTime;
         private ProgressBar progressBar;

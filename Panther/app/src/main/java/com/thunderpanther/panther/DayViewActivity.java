@@ -38,7 +38,7 @@ public class DayViewActivity extends ListActivity implements ScheduleTaskDialogF
         final int day = getIntent().getExtras().getInt("day");
 
         Log.d("info", year + " " + month + " " + day);
-
+        setTitle(day + "/" + month + "/" + year);
         java.util.Calendar cal = java.util.Calendar.getInstance();
         cal.set(year, month + java.util.Calendar.JANUARY, day, 0, 0, 0);
         cal.set(Calendar.MILLISECOND, 0);
@@ -55,7 +55,6 @@ public class DayViewActivity extends ListActivity implements ScheduleTaskDialogF
         }
 
         super.onCreate(savedInstanceState);
-        //getListView().setBackgroundColor(Color.rgb(12, 12, 12));
         getListView().setDividerHeight(0);
         setListAdapter(new ListAdapter() {
 
@@ -106,13 +105,6 @@ public class DayViewActivity extends ListActivity implements ScheduleTaskDialogF
                 amTV.setTextColor(Color.BLUE);
                 final LinearLayout eventsLL = (LinearLayout) listItem.findViewById(R.id.eventsLL);
                 hourTV.setText(String.valueOf((position )));
-                //I set am/pm for each entry ... you could specify which entries
-                /*
-                if (((position >= 0) && (position <= 2)) || ((position >= 15) && (position <= 23)))
-                    amTV.setText("AM");
-                else
-                    amTV.setText("PM");
-                */
 
                 amTV.setText(position < 12 ? "AM" : "PM");
                 int newPosition = (position >= 12) ? position - 12 : position;
@@ -131,7 +123,6 @@ public class DayViewActivity extends ListActivity implements ScheduleTaskDialogF
                 for (WorkSession w : sessions) {
                     long wTime = w.getStartTime().getTime();
                     long wTime2 = w.getEndTime().getTime();
-                    // Log.d("WS Info", rangeStart + " - " + rangeEnd + " :: " + wTime);
 
                     if (wTime >= rangeStart && wTime <= rangeEnd) {
                         hasWorkSession = true;
@@ -160,29 +151,7 @@ public class DayViewActivity extends ListActivity implements ScheduleTaskDialogF
                     @Override
                     public void onClick(View arg0) {
                         // TODO Auto-generated method stub
-                        /*AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
 
-                        alert.setTitle("New Event");
-                        alert.setMessage("Event:");
-
-                        // Set an EditText view to get user input
-                        final EditText input = new EditText(mContext);
-                        alert.setView(input);
-
-                        alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                TextView A = new TextView(mContext);
-                                A.setText(input.getText());
-                                A.setTextColor(Color.BLACK);
-                                eventsLL.addView(A);
-                            }
-                        });
-
-                        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                            }
-                        });
-                        alert.show();*/
                         if (id >= 0) {
                             java.util.Calendar cal = java.util.Calendar.getInstance();
 

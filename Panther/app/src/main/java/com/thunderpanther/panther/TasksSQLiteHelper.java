@@ -90,6 +90,21 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public void updateTaskInDB(int id, String name, int weight, double estimate) {
+        Log.i("TasksSQLiteHelperDB","Adding Task To DB");
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TASKID, id);
+        values.put(COLUMN_TASKNAME, name);
+        values.put(COLUMN_WEIGHT, weight);
+        values.put(COLUMN_ESTIMATE, estimate);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.update(TABLE_TASKS, values, COLUMN_TASKID + " = " + id, null);
+
+        db.close();
+    }
+
     public void addTaskToDB( int id, String name, int weight, double estimate, int parentId, boolean completed) {
         Log.i("TasksSQLiteHelperDB","Adding Task To DB");
         ContentValues values = new ContentValues();
@@ -212,7 +227,7 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
         int id = Integer.parseInt(cursor.getString(0));
         String name = cursor.getString(1);
         int weight = Integer.parseInt(cursor.getString(2));
-        int estimate = Integer.parseInt(cursor.getString(3));//PARSE DOUBLE
+        double estimate = Double.parseDouble(cursor.getString(3));//PARSE DOUBLE
         int parentId = Integer.parseInt(cursor.getString(4));
         boolean completed = Integer.parseInt(cursor.getString(5)) == 1;
         Task task = new Task(name, weight, estimate, id);

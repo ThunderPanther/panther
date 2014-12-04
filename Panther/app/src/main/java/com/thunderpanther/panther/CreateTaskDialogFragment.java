@@ -20,6 +20,7 @@ public class CreateTaskDialogFragment extends DialogFragment {
     public interface CreateTaskListener {
         public void onCreateTaskConfirm(String name, Task parent, int weight, double timeEst);
         public void onDeleteTask(int id);
+        public void updateTask(Task t);
     }
 
     private String mTitle;
@@ -86,7 +87,7 @@ public class CreateTaskDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (editingTask) {
-
+                            mExistingTask.setName(mTaskName.getText().toString());
                             try {
                                 int weight = Integer.parseInt(mTaskWeight.getText().toString());
                                 mExistingTask.setWeight(weight);
@@ -98,6 +99,7 @@ public class CreateTaskDialogFragment extends DialogFragment {
                                 mExistingTask.setTimeEstimate(timeEstimate);
                             } catch (NumberFormatException e) {
                             }
+                            listener.updateTask(mExistingTask);
 
                         } else if (listener != null) {
 

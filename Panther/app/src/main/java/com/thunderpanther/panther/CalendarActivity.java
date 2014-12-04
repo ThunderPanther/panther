@@ -261,6 +261,13 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
     }
 
     @Override
+    public void updateTask(Task t) {
+        Application.getDB().updateTaskInDB(t.getID(), t.getName(), t.getWeight(), t.getTimeEstimate());
+        User.getCurrentUser().invalidateTaskList();
+        mNavigationDrawerFragment.refreshTaskList();
+    }
+
+    @Override
     public void onCreateWorkSession(Date startTime, Date endTime, Task target) {
         // TODO: DB id!
         WorkSession w = new WorkSession(Application.getDB().getNextWorkSessionId(), startTime, endTime, target);

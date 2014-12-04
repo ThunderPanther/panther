@@ -25,6 +25,8 @@ public class Task {
 
     private static int currentID = 0;
 
+    private boolean isCompleted = false;
+
     public Task(String name, int weight, double timeEstimate, int ID) {
         this(name, weight, timeEstimate, null, ID);
     }
@@ -117,6 +119,14 @@ public class Task {
 
     public void setWeight(int w) {
         weight = w;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setComplete(boolean complete) {
+        this.isCompleted = complete;
     }
 
     public double getTimeEstimate() {

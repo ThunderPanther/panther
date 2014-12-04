@@ -211,7 +211,7 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
         }else{
             pid = t.getParent().getID();
         }
-        TDBHelper.addTaskToDB( t.getID(), t.getName(), t.getWeight(), t.getTimeEstimate(), pid);
+        TDBHelper.addTaskToDB( t.getID(), t.getName(), t.getWeight(), t.getTimeEstimate(), pid, t.isCompleted());
     }
 
     @Override

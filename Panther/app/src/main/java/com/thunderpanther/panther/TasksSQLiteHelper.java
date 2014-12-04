@@ -24,6 +24,7 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_TASKNAME = "name";
     public static final String COLUMN_WEIGHT = "weight";
     public static final String COLUMN_ESTIMATE = "estimate";
+    public static final String COLUMN_COMPLETED = "complete";
     //CurrentId
     public static final String TABLE_CURRENTID = "current";
     public static final String COLUMN_ID = "_Id";
@@ -38,7 +39,8 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_TASKNAME+ " TEXT NOT NULL, "
             + COLUMN_WEIGHT+ " INTEGER, "
             + COLUMN_ESTIMATE+ " DOUBLE, "
-            + COLUMN_PARENTID +" INTEGER);";
+            + COLUMN_PARENTID +" INTEGER"
+            + COLUMN_COMPLETED +" INTEGER);";
 
     private static final String DATABASE_CREATE2 = "CREATE TABLE "
             + TABLE_CURRENTID + " (" + COLUMN_ID +" INTEGER PRIMARY KEY, "+ COLUMN_NEXTID + " INTEGER);";
@@ -88,7 +90,7 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addTaskToDB( int id, String name, int weight, double estimate, int parentId){
+    public void addTaskToDB( int id, String name, int weight, double estimate, int parentId, boolean completed) {
         Log.i("TasksSQLiteHelperDB","Adding Task To DB");
         ContentValues values = new ContentValues();
         values.put(COLUMN_TASKID, id);
@@ -96,6 +98,7 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
         values.put(COLUMN_WEIGHT, weight);
         values.put(COLUMN_ESTIMATE, estimate);
         values.put(COLUMN_PARENTID, parentId);
+        values.put(COLUMN_COMPLETED, completed ? 1 : 0);
         Log.i("Add Task To DB","Getting Writable Database");
         SQLiteDatabase db = this.getWritableDatabase();
         Log.i("Add Task To DB","Got Writable Database ");
@@ -193,7 +196,9 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
         int weight = Integer.parseInt(cursor.getString(2));
         int estimate = Integer.parseInt(cursor.getString(3));//PARSE DOUBLE
         int parentId = Integer.parseInt(cursor.getString(4));
+        boolean completed = Integer.parseInt(cursor.getString(5)) == 1;
         Task task = new Task(name, weight, estimate, id);
+        task.setComplete(completed);
         return task;
     }
     public int numberOfRows(){

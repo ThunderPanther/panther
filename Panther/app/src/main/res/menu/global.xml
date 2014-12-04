@@ -4,4 +4,8 @@
         android:orderInCategory="100"
         android:showAsAction="never" />
 
+    <item android:id="@+id/create_task"
+        android:icon="@drawable/ic_action_add"
+        android:title="createTaskButton"
+        android:showAsAction="ifRoom"/>
 </menu>

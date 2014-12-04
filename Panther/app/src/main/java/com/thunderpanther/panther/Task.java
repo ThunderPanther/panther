@@ -37,6 +37,14 @@ public class Task {
         parent = parentTask;
     }
 
+    public Task(int ID, String name, int weight, int timeEstimate) {
+        this.id = ID;
+        this.name = /* "@" + (currentID) + ": " + */ name;
+        this.weight = weight;
+        this.timeEstimate = timeEstimate;
+        parent = null;
+    }
+
     public void logWork(int timeWorked) {
         this.timeWorked += timeWorked;
         timeEstimate -= timeWorked;

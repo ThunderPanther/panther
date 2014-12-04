@@ -10,7 +10,7 @@ public class User {
     private static User currentUser = null;
     private TaskForest taskList = new TaskForest();
 
-    //TasksSQLiteHelper TDBHelper = new TasksSQLiteHelper(getActivity());
+    //TasksSQLiteHelper TDBHelper = new TasksSQLiteHelper(getApplicationContext());
 
     protected User() {}
 
@@ -41,6 +41,7 @@ public class User {
         // Load the data from local storage
         // for each task in the database call add task is what I would do but I cant get an
         // application context in this type of class
+        taskList = TDBHelper.getUserTasks();
 
     }
 
@@ -71,5 +72,13 @@ public class User {
 
         //for task in task list put them in the database is what I would do but I cant get an
         // application context in this type of class
+    }
+
+    public void loadTasks(TasksSQLiteHelper TDBHelper) {
+        // Load the data from local storage
+        // for each task in the database call add task is what I would do but I cant get an
+        // application context in this type of class
+        taskList = TDBHelper.getUserTasks();
+
     }
 }

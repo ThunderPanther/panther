@@ -3,6 +3,7 @@ package com.thunderpanther.panther;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -14,6 +15,7 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_TASKS = "tasks";
     public static final String COLUMN_TASKID = "_taskId";
+    public static final String COLUMN_PARENTID = "parentId";
     public static final String COLUMN_TASKNAME = "name";
     public static final String COLUMN_WEIGHT = "weight";
     public static final String COLUMN_ESTIMATE = "estimate";
@@ -25,7 +27,9 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE = "CREATE TABLE "
             + TABLE_TASKS + "(" + COLUMN_TASKID
             + " INTEGER PRIMARY KEY, " + COLUMN_TASKNAME
-            + " TEXT NOT NULL, " + COLUMN_WEIGHT + " INTEGER, " + COLUMN_ESTIMATE +  " INTEGER);";
+            + " TEXT NOT NULL, " + COLUMN_WEIGHT
+            + " INTEGER, " + COLUMN_ESTIMATE
+            + " INTEGER, " + COLUMN_PARENTID +" INTEGER);";
 
     public TasksSQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -44,13 +48,14 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addTaskToDB( int id, String name, int weight, int estimate){
+    public void addTaskToDB( int id, String name, int weight, int estimate, int parentId){
         Log.i("TasksSQLiteHelperDB","Adding Task To DB");
         ContentValues values = new ContentValues();
         values.put(COLUMN_TASKID, id);
         values.put(COLUMN_TASKNAME, name);
         values.put(COLUMN_WEIGHT, weight);
         values.put(COLUMN_ESTIMATE, estimate);
+        values.put(COLUMN_PARENTID, parentId);
         Log.i("Add Task To DB","Getting Writable Database");
         SQLiteDatabase db = this.getWritableDatabase();
         Log.i("Add Task To DB","Got Writable Database ");
@@ -65,26 +70,53 @@ public class TasksSQLiteHelper extends SQLiteOpenHelper {
         TaskForest taskList = new TaskForest();
         String query = "Select * FROM " + TABLE_TASKS;
 
-        return taskList;
-    }
-
-    public String findTask(int id){
-        String query = "Select * FROM " + TABLE_TASKS + " WHERE " + COLUMN_TASKID + " = " + id;
-
         SQLiteDatabase db = this.getWritableDatabase();
 
         Cursor cursor = db.rawQuery(query, null);
-
-        String name;
-
-        if (cursor.moveToFirst()) {
-            cursor.moveToFirst();
-            name = cursor.getString(1);
-            cursor.close();
-        } else {
-            name = null;
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Task task = cursorToTask(cursor);
+            taskList.addTask(task, null);
+            cursor.moveToNext();
         }
+        // make sure to close the cursor
+        cursor.close();
         db.close();
-        return name;
+        return taskList;
     }
+
+    private Task cursorToTask(Cursor cursor){
+        int id = Integer.parseInt(cursor.getString(0));
+        String name = cursor.getString(1);
+        int weight = Integer.parseInt(cursor.getString(2));
+        int estimate = Integer.parseInt(cursor.getString(3));
+        int parentId = Integer.parseInt(cursor.getString(4));
+        Task task = new Task(id, name, weight, estimate);
+        return task;
+    }
+    public int numberOfRows(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        int numRows = (int) DatabaseUtils.queryNumEntries(db, TABLE_TASKS);
+        return numRows;
+    }
+//    public String findTask(int id){
+//        String query = "Select * FROM " + TABLE_TASKS + " WHERE " + COLUMN_TASKID + " = " + id;
+//
+//        SQLiteDatabase db = this.getWritableDatabase();
+//
+//        Cursor cursor = db.rawQuery(query, null);
+//
+//        String name;
+//
+//        cursor.moveToFirst();
+//        while (!cursor.isAfterLast()) {
+//            Task task = cursorToTask(cursor);
+//
+//            cursor.moveToNext();
+//        }
+//        // make sure to close the cursor
+//        cursor.close();
+//        db.close();
+//        return name;
+//    }
 }

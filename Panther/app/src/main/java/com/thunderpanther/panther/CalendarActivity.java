@@ -24,8 +24,10 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
     CalendarView calendar;
 
     // Database fields
-    //private SQLiteDatabase database;
-    TasksSQLiteHelper TDBHelper = new TasksSQLiteHelper(getApplicationContext());
+//    //private SQLiteDatabase database;
+    //TasksSQLiteHelper TDBHelper = new TasksSQLiteHelper(getApplicationContext());
+
+    TasksSQLiteHelper TDBHelper;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -40,6 +42,9 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        TDBHelper = new TasksSQLiteHelper(this);
+        User.getCurrentUser().loadTasks(TDBHelper);
         setContentView(R.layout.activity_calendar);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -158,13 +163,13 @@ public class CalendarActivity extends Activity implements NavigationDrawerFragme
         Log.d("info", name + " " + weight);
 
         Task t = new Task(name, weight, 0);
-        User.getCurrentUser(TDBHelper).addTask(t, null);
+        User.getCurrentUser().addTask(t, null);
         storeTaskInDB(t);
     }
 
     public void storeTaskInDB(Task t){
-
-        TDBHelper.addTaskToDB( t.getId(), t.getName(), t.getWeight(), t.getEstimate());
+        Log.d("info", "Storing Task in DB");
+        TDBHelper.addTaskToDB( t.getId(), t.getName(), t.getWeight(), t.getEstimate(), 0);
     }
 
 

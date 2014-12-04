@@ -46,8 +46,6 @@ import java.util.List;
  */
 public class NavigationDrawerFragment extends Fragment {
 
-
-    TasksSQLiteHelper TDBHelper = new TasksSQLiteHelper(getActivity());
     /**
      * Remember the position of the selected item.
      */
@@ -86,7 +84,6 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -110,7 +107,7 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     private void refreshTaskList() {
-        User currentUser = User.getCurrentUser(TDBHelper);
+        User currentUser = User.getCurrentUser();
         if (taskList == null) {
             taskList = currentUser.getTaskList();
             // Defaults to false

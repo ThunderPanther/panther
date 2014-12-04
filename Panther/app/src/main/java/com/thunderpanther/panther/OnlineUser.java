@@ -16,8 +16,9 @@ public class OnlineUser extends User {
         serverHandler = ServerHandler.openConnection();
     }
 
+
     @Override
-    protected void loadData() {
+    protected void loadData(TasksSQLiteHelper DB) {
         // Query the database to load tasks/worksessions
     }
 

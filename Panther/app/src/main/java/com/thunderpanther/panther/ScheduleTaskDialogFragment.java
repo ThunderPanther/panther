@@ -33,22 +33,17 @@ public class ScheduleTaskDialogFragment extends DialogFragment {
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
-    public void setOnWorkSessionCreateListener(WorkSessionCreateListener listener) {
-        this.listener = listener;
-    }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        /*
         try {
-            listener = (CreateTaskListener)activity;
+            listener = (WorkSessionCreateListener)activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement CreateTaskListener");
+                    + " must implement WorkSessionCreateListener");
         }
-        */
     }
 
     @Override

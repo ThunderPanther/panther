@@ -24,9 +24,14 @@ public class TaskProgressDialogFragment extends DialogFragment {
         private Date startTime;
         private ProgressBar progressBar;
 
+        private TaskListAdapter.OnLongClickerListener listener;
+
         public TaskProgressDialogFragment() {}
         public void setTargetTask(Task target) {
             targetTask = target;
+        }
+        public void setListener(TaskListAdapter.OnLongClickerListener listener) {
+            this.listener = listener;
         }
 
         @Override
@@ -38,9 +43,26 @@ public class TaskProgressDialogFragment extends DialogFragment {
             progressBar = (ProgressBar)dialogView.findViewById(R.id.task_progress_bar);
             progressBar.setProgress((int)(targetTask.getCompletePercentage() * 100));
 
+            int neutralString = targetTask.isCompleted() ? R.string.dialog_undo_complete : R.string.dialog_complete;
+
             builder.setView(dialogView)
                     .setTitle(targetTask.getName() + " " + getString(R.string.task_progress_title))
-                    .setPositiveButton(R.string.dialog_OK,
+                    .setPositiveButton(R.string.dialog_schedule, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (listener != null) {
+                                TaskPair pair = new TaskPair(targetTask.getID(), targetTask.getName(), 0);
+                                listener.onTaskLongClick(pair);
+                            }
+                        }
+                    })
+                    .setNeutralButton(neutralString, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            targetTask.setComplete(!targetTask.isCompleted());
+                        }
+                    })
+                    .setNegativeButton(R.string.dialogCancel,
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {

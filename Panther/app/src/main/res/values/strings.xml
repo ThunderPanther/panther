@@ -37,4 +37,8 @@
     <string name="task_progress_label">Task Progress</string>
     <string name="task_progress_title">Progress</string>
     <string name="dialog_OK">OK</string>
+
+    <string name="dialog_schedule">Schedule Task</string>
+    <string name="dialog_complete">Mark as Complete</string>
+    <string name="dialog_undo_complete">Mark as Incomplete</string>
 </resources>

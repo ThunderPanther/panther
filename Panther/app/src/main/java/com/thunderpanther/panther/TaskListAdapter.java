@@ -89,7 +89,13 @@ public class TaskListAdapter extends ArrayAdapter<TaskPair> {
         holder.name.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                longClickerListener.onTaskLongClick(items.get(position));
+                // longClickerListener.onTaskLongClick(items.get(position));
+
+                TaskProgressDialogFragment progress = new TaskProgressDialogFragment();
+                progress.setTargetTask(User.getCurrentUser().getTask(items.get(position).id));
+                progress.setListener(longClickerListener);
+                progress.show(fragmentManager, "task_progress_dialog");
+
                 return true;
             }
         });

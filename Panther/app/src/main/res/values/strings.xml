@@ -33,4 +33,8 @@
 
     <string name="scheduleTaskTitle">Schedule Task</string>
     <string name="duration">Task Duration</string>
+
+    <string name="task_progress_label">Task Progress</string>
+    <string name="task_progress_title">Progress</string>
+    <string name="dialog_OK">OK</string>
 </resources>

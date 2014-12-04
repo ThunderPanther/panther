@@ -150,4 +150,19 @@ public class Task {
             t.addRefToList(taskList);
         }
     }
+
+    public double getCompletePercentage() {
+        if (isCompleted) {
+            return 1.0;
+        } else if (children.size() == 0) {
+            return 0.0;
+        } else {
+            double completed = 0.0;
+            int numChildren = children.size();
+            for (Task child : children) {
+                completed += child.getCompletePercentage() / numChildren;
+            }
+            return completed;
+        }
+    }
 }

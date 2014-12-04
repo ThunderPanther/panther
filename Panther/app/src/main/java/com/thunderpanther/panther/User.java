@@ -43,11 +43,29 @@ public class User {
         // application context in this type of class
         taskList = TDBHelper.getUserTasks();
 
+        /*
+        Task rootTask1 = new Task("Test root task", 0, 0);
+        currentUser.addTask(rootTask1);
+
+        Task taskTree[] = new Task[17];
+        taskTree[1] = new Task("Task tree task 1", 0, 0);
+        currentUser.addTask(taskTree[1]);
+        for (int i = 2; i < 17; i++) {
+            taskTree[i] = new Task("Task tree task" + i, 0, 0);
+            currentUser.addTask(taskTree[i], taskTree[i / 2]);
+        }
+        */
+    }
+
+    public Task getTask(int id) {
+        return taskList.getTask(id);
     }
 
     public List<TaskPair> getTaskList() {
         return taskList.getTaskList();
     }
+
+    public List<Task> getTaskRefList() { return taskList.getTaskRefList(); }
 
     public boolean isTaskListModified() {
         return taskList.isModified();
@@ -62,8 +80,8 @@ public class User {
         taskList.addTask(t, p);
     }
 
-    public void removeTask(Task t) {
-        taskList.removeTask(t);
+    public void removeTask(int id) {
+        taskList.removeTask(id);
     }
 
     public void storeData() {

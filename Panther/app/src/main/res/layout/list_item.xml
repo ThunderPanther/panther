@@ -6,7 +6,8 @@
     android:layout_height="fill_parent"
     android:paddingTop="5dip"
     android:paddingBottom="5dip"
-    android:background="#CCC">
+    android:background="#ff65646c"
+    android:textColor="#00FF00">
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_height="fill_parent"
@@ -16,6 +17,8 @@
             android:id="@+id/hourTV"
             android:text=""
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#00FF00"
+            android:typeface="monospace"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"/>
         <TextView
@@ -23,7 +26,9 @@
             android:text=""
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"/>
+            android:layout_width="wrap_content"
+            android:textColor="#00FF00"
+            android:typeface="monospace"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/LLdesign"
